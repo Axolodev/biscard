@@ -1,4 +1,7 @@
 import type { Preview } from '@storybook/nextjs-vite'
+import React from 'react'
+
+import '../src/app/globals.css'
 
 const preview: Preview = {
   parameters: {
@@ -16,6 +19,15 @@ const preview: Preview = {
       test: 'todo'
     }
   },
+
+  decorators: [
+    (Story) =>
+      React.createElement(
+        'div',
+        { 'data-theme': 'biscard', className: 'bg-base-100 text-base-content min-h-screen' },
+        React.createElement(Story)
+      ),
+  ],
 };
 
 export default preview;
