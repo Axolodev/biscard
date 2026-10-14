@@ -25,5 +25,6 @@
     "eslint-config-next": "^14.2.35",
     "tailwindcss": "^4.3.3",
     "typescript": "^5"
-  }
+  },
+  "browserslist": "> 1%"
 }
