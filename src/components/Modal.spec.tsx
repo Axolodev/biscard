@@ -12,27 +12,35 @@ describe("Modal", () => {
     expect(screen.getByRole("heading", { name: "Settings" })).toBeInTheDocument();
 
     // Theme-controller dropdown, built per DaisyUI's documented dropdown
-    // pattern, offering the one theme defined in this app (`biscard`).
-    expect(screen.getByRole("button", { name: "Theme" })).toBeInTheDocument();
-    const themeOption = screen.getByRole("radio", { name: "Biscard" });
-    expect(themeOption).toBeInTheDocument();
-    expect(themeOption).toHaveClass("theme-controller");
-    expect(themeOption).toBeChecked();
+    // pattern, offering this app's own theme (labeled "Default") plus the
+    // four built-in DaisyUI themes enabled in globals.css.
+    expect(screen.getByRole("button", { name: "Default" })).toBeInTheDocument();
+    const defaultThemeOption = screen.getByRole("radio", { name: "Default" });
+    expect(defaultThemeOption).toBeInTheDocument();
+    expect(defaultThemeOption).toHaveClass("theme-controller");
+    expect(defaultThemeOption).toHaveAttribute("value", "biscard");
+    expect(defaultThemeOption).toBeChecked();
+    for (const label of ["Retro", "Cyberpunk", "Valentine", "Aqua"]) {
+      const option = screen.getByRole("radio", { name: label });
+      expect(option).toBeInTheDocument();
+      expect(option).toHaveClass("theme-controller");
+      expect(option).not.toBeChecked();
+    }
 
-    // Language select, defaulting to English, offering Spanish.
-    const languageSelect = screen.getByRole("combobox", { name: "Language" });
-    expect(languageSelect).toHaveValue("en");
+    // Language dropdown, defaulting to English, offering Spanish.
+    expect(screen.getByRole("button", { name: "Language" })).toBeInTheDocument();
     expect(
-      screen.getByRole("option", { name: "English" })
-    ).toBeInTheDocument();
+      screen.getByRole("button", { name: "English" })
+    ).toHaveAttribute("aria-pressed", "true");
     expect(
-      screen.getByRole("option", { name: "Español" })
-    ).toBeInTheDocument();
+      screen.getByRole("button", { name: "Spanish" })
+    ).toHaveAttribute("aria-pressed", "false");
 
-    // Upper close ("x") button, lower Close button, and Save button.
+    // Upper close ("x") button and the lower "Close" button. There is no
+    // separate "Save" button — the design only has the one Close action.
     expect(screen.getByRole("button", { name: "Close settings" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Close" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Save" })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Save" })).not.toBeInTheDocument();
   });
 
   it("triggers the close function when the modal's upper close button is pressed", () => {
@@ -57,9 +65,7 @@ describe("Modal", () => {
     const onLanguageChange = vi.fn();
     render(<Modal onLanguageChange={onLanguageChange} onClose={vi.fn()} />);
 
-    fireEvent.change(screen.getByRole("combobox", { name: "Language" }), {
-      target: { value: "es" },
-    });
+    fireEvent.click(screen.getByRole("button", { name: "Spanish" }));
 
     expect(onLanguageChange).toHaveBeenCalledTimes(1);
     expect(onLanguageChange).toHaveBeenCalledWith("es");

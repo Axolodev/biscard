@@ -1,5 +1,17 @@
 @import "tailwindcss";
-@plugin "daisyui";
+
+/*
+ * "biscard" (below) is this app's own theme and stays the default. The
+ * settings modal's theme-controller dropdown (Figma node 26:11929) also
+ * offers four of DaisyUI's built-in themes, labeled "Default" (biscard),
+ * "Retro", "Cyberpunk", "Valentine" and "Aqua" — see
+ * src/components/Modal.tsx. DaisyUI ships retro/cyberpunk/valentine/aqua
+ * built in; they just need to be enabled here. See
+ * https://daisyui.com/docs/themes/ for the `themes:` option syntax.
+ */
+@plugin "daisyui" {
+  themes: retro, cyberpunk, valentine, aqua;
+}
 
 @plugin "daisyui/theme" {
   name: "biscard";
