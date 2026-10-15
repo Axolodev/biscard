@@ -40,5 +40,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+<<<<<<< HEAD
 # loop board worktrees
 .claude/worktrees/
+=======
+*storybook.log
+storybook-static
+>>>>>>> ac4deef (wip: storybook scaffold (recovered after interrupted agent))
