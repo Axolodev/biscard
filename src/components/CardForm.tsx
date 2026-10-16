@@ -58,7 +58,7 @@ export function CardForm({ state, onChange, className }: CardFormProps) {
 
   return (
     <form
-      className={`bg-base-200 border-base-300 rounded-box flex flex-col gap-6 border p-6 md:p-6 ${className ?? ""}`}
+      className={`bg-base-200 border-base-300 rounded-box flex flex-col gap-6 border p-8 ${className ?? ""}`}
       onSubmit={(e) => e.preventDefault()}
     >
       <fieldset className={GRID}>
