@@ -23,7 +23,7 @@ export interface HeadingProps {
  */
 export function Heading({ onSettingsClick }: HeadingProps) {
   return (
-    <header className="navbar bg-base-200 text-base-content rounded-box">
+    <header className="navbar text-base-content border-base-content border-b px-0">
       <div className="flex-1">
         <h1 className="px-2 text-xl font-bold">{HEADING_TITLE}</h1>
       </div>
