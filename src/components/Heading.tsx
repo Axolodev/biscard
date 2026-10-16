@@ -3,9 +3,10 @@
  */
 export const HEADING_GITHUB_URL = "https://github.com/Axolodev/biscard";
 
+/** Title text shown in the heading. */
+export const HEADING_TITLE = "CardGen";
+
 export interface HeadingProps {
-  /** Title text shown in the heading. */
-  title?: string;
   /**
    * Called when the settings (gear) button is clicked. The caller is
    * expected to use this to open a settings modal.
@@ -20,11 +21,11 @@ export interface HeadingProps {
  * - The gear icon is a plain button — it invokes `onSettingsClick` and
  *   leaves opening any modal to the caller.
  */
-export function Heading({ title = "CardGen", onSettingsClick }: HeadingProps) {
+export function Heading({ onSettingsClick }: HeadingProps) {
   return (
-    <header className="navbar bg-base-200 text-base-content rounded-box">
+    <header className="navbar text-base-content border-base-content border-b px-0">
       <div className="flex-1">
-        <h1 className="px-2 text-xl font-bold">{title}</h1>
+        <h1 className="px-2 text-4xl font-bold">{HEADING_TITLE}</h1>
       </div>
       <div className="flex flex-none items-center gap-1">
         <a

@@ -19,14 +19,4 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    title: 'CardGen',
-  },
-};
-
-export const CustomTitle: Story = {
-  args: {
-    title: 'My Deck',
-  },
-};
+export const Default: Story = {};
