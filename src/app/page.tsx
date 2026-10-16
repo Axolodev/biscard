@@ -13,13 +13,13 @@ export default function Home() {
   const [settingsOpen, setSettingsOpen] = useState(false);
 
   return (
-    <main className="bg-base-100 mx-auto flex w-full max-w-[1600px] md:max-h-[100svh] flex-1 flex-col gap-6 xl:px-8 lg:px-6 py-6 lg:h-screen px-4">
+    <main className="bg-base-100 mx-auto flex w-full max-w-[1920px] flex-1 flex-col gap-6 px-8 py-6 lg:h-screen lg:px-[120px]">
       <Heading onSettingsClick={() => setSettingsOpen(true)} />
       <div className="grid min-h-0 flex-1 grid-cols-1 gap-6 lg:grid-cols-2">
         <CardForm
           state={form}
           onChange={setForm}
-          className="min-h-0 md:overflow-y-auto"
+          className="min-h-0 lg:overflow-y-auto"
         />
         <Visualizer onResetView={() => {}} onDownloadStl={() => {}} />
       </div>
