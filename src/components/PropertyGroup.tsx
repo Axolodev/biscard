@@ -6,6 +6,8 @@ import type { ChangeEvent, ReactNode } from "react";
 export interface PropertyGroupProps {
   /** Label shown next to the toggle and used as the fieldset's legend. */
   label: string;
+  /** Legend of the fieldset. Defaults to `label`. */
+  legend?: string;
   /** The input fields rendered inside the fieldset. */
   children?: ReactNode;
   /**
@@ -28,6 +30,7 @@ export interface PropertyGroupProps {
  * */
 export function PropertyGroup({
   label,
+  legend,
   children,
   onToggleChange,
   checked,
@@ -64,7 +67,7 @@ export function PropertyGroup({
         hidden={!isChecked}
         className="fieldset bg-base-300 border-base-300 rounded-box border p-4"
       >
-        <legend className="fieldset-legend">{label}</legend>
+        <legend className="fieldset-legend">{legend ?? label}</legend>
         {children}
       </fieldset>
     </div>
