@@ -46,6 +46,17 @@ You get one of three:
 - **Conflicts.** Resolve the merge conflicts on the given branch and push. Resolve them; don't paper
   over them by taking one side wholesale unless that's actually correct.
 
+## Commits
+
+Commit constantly while you work, not once at the end. Each coherent step (a test, a component, a
+fix, a refactor you needed) gets its own commit as soon as it works, so the history shows how the
+change was built and any step can be reverted alone.
+
+Every commit message follows [Conventional Commits](https://www.conventionalcommits.org/):
+`type(ticket number): short imperative summary`, with types such as `feat`, `fix`, `test`, `docs`,
+`refactor`, `style`, `chore`, `build` and `ci`. Add a body when the why isn't obvious, and mark
+breaking changes with `!` or a `BREAKING CHANGE:` footer.
+
 Scope yourself to the task. Refactors you noticed on the way, unrelated lint, and drive-by
 improvements are not the task. If the task can't be done without a bigger change, that's a question,
 not a licence.
