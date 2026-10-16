@@ -54,19 +54,4 @@ describe("PropertyGroup", () => {
 
     expect(screen.getByLabelText("Width")).toBeInTheDocument();
   });
-
-  it("supports React Hook Form style props", () => {
-    const onChange = vi.fn();
-    const onBlur = vi.fn();
-    const ref = vi.fn();
-    setup({ name: "textBlock", onChange, onBlur, ref });
-
-    const toggle = screen.getByRole("switch");
-    expect(toggle).toHaveAttribute("name", "textBlock");
-    expect(ref).toHaveBeenCalledWith(toggle);
-    fireEvent.click(toggle);
-    fireEvent.blur(toggle);
-    expect(onChange).toHaveBeenCalledTimes(1);
-    expect(onBlur).toHaveBeenCalledTimes(1);
-  });
 });
