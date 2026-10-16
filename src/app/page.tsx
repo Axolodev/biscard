@@ -1,21 +1,34 @@
+"use client";
+
+import { useState } from "react";
+import { CardForm } from "@/components/CardForm";
+import { initialCardFormState } from "@/components/cardFormTypes";
+import type { CardFormState } from "@/components/cardFormTypes";
+import { Heading } from "@/components/Heading";
+import { Modal } from "@/components/Modal";
+import { Visualizer } from "@/components/Visualizer";
+
 export default function Home() {
+  const [form, setForm] = useState<CardFormState>(initialCardFormState);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+
   return (
-    <div className="">
-      <main className="">
-        <div className="hero bg-base-200 min-h-screen">
-          <div className="hero-content text-center">
-            <div className="max-w-md">
-              <h1 className="text-5xl font-bold">Hello there</h1>
-              <p className="py-6">
-                Provident cupiditate voluptatem et in. Quaerat fugiat ut
-                assumenda excepturi exercitationem quasi. In deleniti eaque aut
-                repudiandae et a id nisi.
-              </p>
-              <button className="btn btn-accent">Get Started</button>
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
+    <main className="bg-base-100 mx-auto flex w-full max-w-[1920px] flex-1 flex-col gap-6 px-8 py-6 lg:h-screen lg:px-[120px]">
+      <Heading onSettingsClick={() => setSettingsOpen(true)} />
+      <div className="grid min-h-0 flex-1 grid-cols-1 gap-6 lg:grid-cols-2">
+        <CardForm
+          state={form}
+          onChange={setForm}
+          className="min-h-0 lg:overflow-y-auto"
+        />
+        <Visualizer onResetView={() => {}} onDownloadStl={() => {}} />
+      </div>
+      {settingsOpen && (
+        <Modal
+          onLanguageChange={() => {}}
+          onClose={() => setSettingsOpen(false)}
+        />
+      )}
+    </main>
   );
 }
