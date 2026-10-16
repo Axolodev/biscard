@@ -37,7 +37,7 @@ describe("CardForm", () => {
       ...initialCardFormState,
       card: { ...initialCardFormState.card, width: 90 },
     });
-    expect(within(card).getByLabelText("Width")).toHaveValue(90);
+    expect(within(card).getByLabelText("Width")).toHaveValue("90");
 
     const text = screen.getByRole("group", { name: "Text Properties" });
     fireEvent.change(within(text).getByLabelText("Text content"), {
