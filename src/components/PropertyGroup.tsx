@@ -21,6 +21,8 @@ export interface PropertyGroupProps {
   defaultChecked?: boolean;
   /** Extra classes for the outer wrapper. */
   className?: string;
+  /** Extra classes for the fieldset wrapper. */
+  fieldsetClassName?: string;
 }
 
 /**
@@ -36,6 +38,7 @@ export function PropertyGroup({
   checked,
   defaultChecked = false,
   className,
+  fieldsetClassName,
 }: PropertyGroupProps) {
   const toggleId = useId();
   const [internalChecked, setInternalChecked] = useState(defaultChecked);
@@ -65,7 +68,7 @@ export function PropertyGroup({
       <fieldset
         disabled={!isChecked}
         hidden={!isChecked}
-        className="fieldset bg-base-300 border-base-300 rounded-box border p-4"
+        className={`fieldset bg-base-300 border-base-300 rounded-box border ${fieldsetClassName ?? "p-4"}`}
       >
         <legend className="fieldset-legend">{legend ?? label}</legend>
         {children}

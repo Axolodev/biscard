@@ -35,7 +35,7 @@ const ERROR_CORRECTION_OPTIONS: readonly {
   { value: "H", label: "High (30%)" },
 ];
 
-const GRID = "grid grid-cols-1 gap-x-2 md:grid-cols-3";
+const GRID = "grid grid-cols-1 gap-x-2 gap-y-3 md:grid-cols-3";
 
 /**
  * The full card form: card dimensions plus the Text, QR Code and NFC Chip
@@ -170,7 +170,8 @@ export function CardForm({ state, onChange, className }: CardFormProps) {
           <PropertyGroup
             className="md:col-span-3"
             label="Include border around QR code?"
-            legend="QR Code Border Properties"
+            legend=""
+            fieldsetClassName="p-0"
             checked={qrCode.border.enabled}
             onToggleChange={(enabled) => setQrBorder({ enabled })}
           >

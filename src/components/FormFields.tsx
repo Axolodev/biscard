@@ -44,14 +44,27 @@ export function NumberField({
       <label className="input w-full">
         <input
           id={id}
-          type="number"
-          inputMode="decimal"
+          type="text"
+          inputMode="numeric"
           step="any"
-          min={0}
+          pattern="^\d*$"
           value={value}
           onChange={(e) => {
-            const next = e.target.valueAsNumber;
-            onValueChange(Number.isNaN(next) ? 0 : next);
+            const next = e.target.value;
+            let numericValue = Number.isNaN(Number(next))
+              ? value
+              : Number(next);
+            // Allow positive values only
+            if (numericValue < 0) {
+              numericValue = value;
+            }
+
+            // Allow only decimal values
+            if (!Number.isInteger(numericValue)) {
+              numericValue = value;
+            }
+
+            onValueChange(numericValue);
           }}
         />
         {unit && <span className="label">{unit}</span>}
