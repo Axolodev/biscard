@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import {
   NumberField,
   SelectField,
@@ -25,15 +26,12 @@ const FONT_OPTIONS = [
   "Verdana",
 ].map((f) => ({ value: f, label: f }));
 
-const ERROR_CORRECTION_OPTIONS: readonly {
-  value: QrErrorCorrection;
-  label: string;
-}[] = [
-  { value: "L", label: "Low (7%)" },
-  { value: "M", label: "Medium (15%)" },
-  { value: "Q", label: "Quartile (25%)" },
-  { value: "H", label: "High (30%)" },
-];
+const ERROR_CORRECTION_KEYS: Record<QrErrorCorrection, string> = {
+  L: "errorLow",
+  M: "errorMedium",
+  Q: "errorQuartile",
+  H: "errorHigh",
+};
 
 const GRID = "grid grid-cols-1 gap-x-2 gap-y-3 md:grid-cols-3";
 
@@ -43,7 +41,14 @@ const GRID = "grid grid-cols-1 gap-x-2 gap-y-3 md:grid-cols-3";
  * and 21:10471 (mobile).
  */
 export function CardForm({ state, onChange, className }: CardFormProps) {
+  const t = useTranslations("cardForm");
   const { card, textBlock, qrCode, nfcChip } = state;
+  const errorCorrectionOptions = (
+    Object.keys(ERROR_CORRECTION_KEYS) as QrErrorCorrection[]
+  ).map((value) => ({
+    value,
+    label: t(`qr.${ERROR_CORRECTION_KEYS[value]}`),
+  }));
 
   const setCard = (patch: Partial<typeof card>) =>
     onChange({ ...state, card: { ...card, ...patch } });
@@ -62,61 +67,61 @@ export function CardForm({ state, onChange, className }: CardFormProps) {
       onSubmit={(e) => e.preventDefault()}
     >
       <fieldset className={GRID}>
-        <legend className="sr-only">Card</legend>
+        <legend className="sr-only">{t("card")}</legend>
         <NumberField
-          label="Width"
+          label={t("width")}
           value={card.width}
           onValueChange={(width) => setCard({ width })}
         />
         <NumberField
-          label="Height"
+          label={t("height")}
           value={card.height}
           onValueChange={(height) => setCard({ height })}
         />
         <NumberField
-          label="Thickness"
+          label={t("thickness")}
           value={card.thickness}
           onValueChange={(thickness) => setCard({ thickness })}
         />
         <NumberField
           className="md:col-span-3"
-          label="Border Radius"
+          label={t("borderRadius")}
           value={card.borderRadius}
           onValueChange={(borderRadius) => setCard({ borderRadius })}
         />
       </fieldset>
 
       <PropertyGroup
-        label="Include text block?"
-        legend="Text Properties"
+        label={t("text.toggle")}
+        legend={t("text.legend")}
         checked={textBlock.enabled}
         onToggleChange={(enabled) => setText({ enabled })}
       >
         <div className={GRID}>
           <NumberField
-            label="Width"
+            label={t("width")}
             value={textBlock.width}
             onValueChange={(width) => setText({ width })}
           />
           <NumberField
-            label="Height"
+            label={t("height")}
             value={textBlock.height}
             onValueChange={(height) => setText({ height })}
           />
           <NumberField
-            label="Thickness"
+            label={t("thickness")}
             value={textBlock.thickness}
             onValueChange={(thickness) => setText({ thickness })}
           />
           <div className="grid grid-cols-2 gap-x-2 md:col-span-3">
             <NumberField
-              label="Font size"
+              label={t("text.fontSize")}
               unit=""
               value={textBlock.fontSize}
               onValueChange={(fontSize) => setText({ fontSize })}
             />
             <SelectField
-              label="Font"
+              label={t("text.font")}
               value={textBlock.fontFamily}
               options={FONT_OPTIONS}
               onValueChange={(fontFamily) => setText({ fontFamily })}
@@ -124,7 +129,7 @@ export function CardForm({ state, onChange, className }: CardFormProps) {
           </div>
           <TextAreaField
             className="md:col-span-3"
-            label="Text content"
+            label={t("text.content")}
             value={textBlock.content}
             onValueChange={(content) => setText({ content })}
           />
@@ -132,44 +137,44 @@ export function CardForm({ state, onChange, className }: CardFormProps) {
       </PropertyGroup>
 
       <PropertyGroup
-        label="Include QR Code?"
-        legend="QR Code Properties"
+        label={t("qr.toggle")}
+        legend={t("qr.legend")}
         checked={qrCode.enabled}
         onToggleChange={(enabled) => setQr({ enabled })}
       >
         <div className={GRID}>
           <NumberField
-            label="Width"
+            label={t("width")}
             value={qrCode.width}
             onValueChange={(width) => setQr({ width })}
           />
           <NumberField
-            label="Height"
+            label={t("height")}
             value={qrCode.height}
             onValueChange={(height) => setQr({ height })}
           />
           <NumberField
-            label="Thickness"
+            label={t("thickness")}
             value={qrCode.thickness}
             onValueChange={(thickness) => setQr({ thickness })}
           />
           <TextField
             className="md:col-span-3"
-            label="QR code text (can be a link)"
+            label={t("qr.content")}
             placeholder="https://example.com/"
             value={qrCode.qrContent}
             onValueChange={(qrContent) => setQr({ qrContent })}
           />
           <SelectField
             className="md:col-span-3"
-            label="Error correction"
+            label={t("qr.errorCorrection")}
             value={qrCode.errorCorrection}
-            options={ERROR_CORRECTION_OPTIONS}
+            options={errorCorrectionOptions}
             onValueChange={(errorCorrection) => setQr({ errorCorrection })}
           />
           <PropertyGroup
             className="md:col-span-3"
-            label="Include border around QR code?"
+            label={t("qr.borderToggle")}
             legend=""
             fieldsetClassName="p-0"
             checked={qrCode.border.enabled}
@@ -177,17 +182,17 @@ export function CardForm({ state, onChange, className }: CardFormProps) {
           >
             <div className={GRID}>
               <NumberField
-                label="Offset from QR code"
+                label={t("qr.borderOffset")}
                 value={qrCode.border.offset}
                 onValueChange={(offset) => setQrBorder({ offset })}
               />
               <NumberField
-                label="Border radius"
+                label={t("qr.borderRadius")}
                 value={qrCode.border.borderRadius}
                 onValueChange={(borderRadius) => setQrBorder({ borderRadius })}
               />
               <NumberField
-                label="Border thickness"
+                label={t("qr.borderThickness")}
                 value={qrCode.border.borderThickness}
                 onValueChange={(borderThickness) =>
                   setQrBorder({ borderThickness })
@@ -199,19 +204,19 @@ export function CardForm({ state, onChange, className }: CardFormProps) {
       </PropertyGroup>
 
       <PropertyGroup
-        label="Leave slot for an NFC chip?"
-        legend="NFC Chip Properties"
+        label={t("nfc.toggle")}
+        legend={t("nfc.legend")}
         checked={nfcChip.enabled}
         onToggleChange={(enabled) => setNfc({ enabled })}
       >
         <div className="grid grid-cols-1 gap-x-2 md:grid-cols-2">
           <NumberField
-            label="Diameter"
+            label={t("nfc.diameter")}
             value={nfcChip.diameter}
             onValueChange={(diameter) => setNfc({ diameter })}
           />
           <NumberField
-            label="Thickness"
+            label={t("thickness")}
             value={nfcChip.thickness}
             onValueChange={(thickness) => setNfc({ thickness })}
           />

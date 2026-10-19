@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
 export interface VisualizerProps {
@@ -21,6 +22,7 @@ export function Visualizer({
   onDownloadStl,
   children,
 }: VisualizerProps) {
+  const t = useTranslations("visualizer");
   return (
     <div className="border-base-content/10 bg-base-300 flex flex-col overflow-hidden rounded-box border">
       <div className="bg-base-200 flex items-center justify-center gap-4 p-6">
@@ -29,7 +31,7 @@ export function Visualizer({
           onClick={onResetView}
           className="btn btn-outline btn-accent"
         >
-          Reset View
+          {t("resetView")}
         </button>
         <button
           type="button"
@@ -37,7 +39,7 @@ export function Visualizer({
           className="btn btn-primary"
         >
           <DownloadIcon className="h-4 w-4" />
-          Download .stl
+          {t("downloadStl")}
         </button>
       </div>
       <div className="flex min-h-96 flex-1 items-center justify-center p-6">

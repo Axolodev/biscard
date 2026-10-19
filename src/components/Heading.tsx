@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 /**
  * Repository the GitHub icon links out to. Fixed per the design — not configurable.
  */
@@ -22,6 +24,7 @@ export interface HeadingProps {
  *   leaves opening any modal to the caller.
  */
 export function Heading({ onSettingsClick }: HeadingProps) {
+  const t = useTranslations("heading");
   return (
     <header className="navbar text-base-content border-base-content border-b px-0">
       <div className="flex-1">
@@ -32,7 +35,7 @@ export function Heading({ onSettingsClick }: HeadingProps) {
           href={HEADING_GITHUB_URL}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="View source on GitHub"
+          aria-label={t("githubLabel")}
           className="btn btn-ghost btn-circle"
         >
           <GithubIcon className="h-5 w-5" />
@@ -40,7 +43,7 @@ export function Heading({ onSettingsClick }: HeadingProps) {
         <button
           type="button"
           onClick={onSettingsClick}
-          aria-label="Open settings"
+          aria-label={t("settingsLabel")}
           className="btn btn-ghost btn-circle"
         >
           <GearIcon className="h-5 w-5" />

@@ -24,10 +24,7 @@ export default function Home() {
         <Visualizer onResetView={() => {}} onDownloadStl={() => {}} />
       </div>
       {settingsOpen && (
-        <Modal
-          onLanguageChange={() => {}}
-          onClose={() => setSettingsOpen(false)}
-        />
+        <Modal onClose={() => setSettingsOpen(false)} />
       )}
     </main>
   );

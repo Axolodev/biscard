@@ -2,6 +2,7 @@ import type { Preview } from '@storybook/nextjs-vite'
 import React from 'react'
 
 import '../src/app/globals.css'
+import { LocaleProvider } from '../src/i18n/LocaleProvider'
 
 const preview: Preview = {
   parameters: {
@@ -25,7 +26,7 @@ const preview: Preview = {
       React.createElement(
         'div',
         { 'data-theme': 'biscard', className: 'bg-base-100 text-base-content min-h-screen' },
-        React.createElement(Story)
+        React.createElement(LocaleProvider, { initialLocale: 'en' }, React.createElement(Story))
       ),
   ],
 };
