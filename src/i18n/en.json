@@ -1,0 +1,67 @@
+{
+  "metadata": {
+    "title": "CardGen",
+    "description": "Generate custom 3d-printed business cards with QR code and NFC chip support."
+  },
+  "heading": {
+    "githubLabel": "View source on GitHub",
+    "settingsLabel": "Open settings"
+  },
+  "visualizer": {
+    "resetView": "Reset View",
+    "downloadStl": "Download .stl"
+  },
+  "modal": {
+    "ariaLabel": "Settings",
+    "title": "Settings",
+    "closeSettings": "Close settings",
+    "close": "Close",
+    "closeBackdrop": "Close backdrop",
+    "theme": "Theme",
+    "language": "Language",
+    "themes": {
+      "biscard": "Default",
+      "retro": "Retro",
+      "cyberpunk": "Cyberpunk",
+      "valentine": "Valentine",
+      "aqua": "Aqua"
+    },
+    "languages": {
+      "en": "English",
+      "es": "Spanish"
+    }
+  },
+  "cardForm": {
+    "card": "Card",
+    "width": "Width",
+    "height": "Height",
+    "thickness": "Thickness",
+    "borderRadius": "Border Radius",
+    "text": {
+      "toggle": "Include text block?",
+      "legend": "Text Properties",
+      "fontSize": "Font size",
+      "font": "Font",
+      "content": "Text content"
+    },
+    "qr": {
+      "toggle": "Include QR Code?",
+      "legend": "QR Code Properties",
+      "content": "QR code text (can be a link)",
+      "errorCorrection": "Error correction",
+      "errorLow": "Low (7%)",
+      "errorMedium": "Medium (15%)",
+      "errorQuartile": "Quartile (25%)",
+      "errorHigh": "High (30%)",
+      "borderToggle": "Include border around QR code?",
+      "borderOffset": "Offset from QR code",
+      "borderRadius": "Border radius",
+      "borderThickness": "Border thickness"
+    },
+    "nfc": {
+      "toggle": "Leave slot for an NFC chip?",
+      "legend": "NFC Chip Properties",
+      "diameter": "Diameter"
+    }
+  }
+}
