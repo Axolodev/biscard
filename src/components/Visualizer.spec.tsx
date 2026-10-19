@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import { renderWithIntl } from "@/i18n/testUtils";
 import userEvent from "@testing-library/user-event";
 
 import { Visualizer } from "./Visualizer";
@@ -8,7 +9,7 @@ describe("Visualizer", () => {
   it("triggers onResetView when the Reset View button is pressed", async () => {
     const onResetView = vi.fn();
     const user = userEvent.setup();
-    render(<Visualizer onResetView={onResetView} onDownloadStl={vi.fn()} />);
+    renderWithIntl(<Visualizer onResetView={onResetView} onDownloadStl={vi.fn()} />);
 
     await user.click(screen.getByRole("button", { name: "Reset View" }));
 
@@ -18,7 +19,7 @@ describe("Visualizer", () => {
   it("triggers onDownloadStl when the Download .stl button is pressed", async () => {
     const onDownloadStl = vi.fn();
     const user = userEvent.setup();
-    render(<Visualizer onResetView={vi.fn()} onDownloadStl={onDownloadStl} />);
+    renderWithIntl(<Visualizer onResetView={vi.fn()} onDownloadStl={onDownloadStl} />);
 
     await user.click(screen.getByRole("button", { name: /Download \.stl/ }));
 
@@ -26,7 +27,7 @@ describe("Visualizer", () => {
   });
 
   it("renders children inside the 3d space", () => {
-    render(
+    renderWithIntl(
       <Visualizer onResetView={vi.fn()} onDownloadStl={vi.fn()}>
         <div data-testid="scene" />
       </Visualizer>,
@@ -43,7 +44,7 @@ describe("Visualizer", () => {
   // the structural/markup equivalent instead.
   describe("button area (vs. Figma node 21:9544)", () => {
     it("renders an outline accent 'Reset View' button with no icon", () => {
-      render(<Visualizer onResetView={vi.fn()} onDownloadStl={vi.fn()} />);
+      renderWithIntl(<Visualizer onResetView={vi.fn()} onDownloadStl={vi.fn()} />);
 
       const resetButton = screen.getByRole("button", { name: "Reset View" });
       expect(resetButton).toHaveClass("btn", "btn-outline", "btn-accent");
@@ -51,7 +52,7 @@ describe("Visualizer", () => {
     });
 
     it("renders a filled primary 'Download .stl' button with a leading icon", () => {
-      render(<Visualizer onResetView={vi.fn()} onDownloadStl={vi.fn()} />);
+      renderWithIntl(<Visualizer onResetView={vi.fn()} onDownloadStl={vi.fn()} />);
 
       const downloadButton = screen.getByRole("button", {
         name: /Download \.stl/,
@@ -63,7 +64,7 @@ describe("Visualizer", () => {
     });
 
     it("centers both buttons together in the button bar", () => {
-      render(<Visualizer onResetView={vi.fn()} onDownloadStl={vi.fn()} />);
+      renderWithIntl(<Visualizer onResetView={vi.fn()} onDownloadStl={vi.fn()} />);
 
       const resetButton = screen.getByRole("button", { name: "Reset View" });
       const downloadButton = screen.getByRole("button", {

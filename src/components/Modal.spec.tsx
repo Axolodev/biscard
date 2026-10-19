@@ -1,11 +1,12 @@
 import { describe, expect, it, vi } from "vitest";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
+import { renderWithIntl } from "@/i18n/testUtils";
 
 import { Modal } from "./Modal";
 
 describe("Modal", () => {
   it("renders correctly and looks like the provided example on figma", () => {
-    render(<Modal onLanguageChange={vi.fn()} onClose={vi.fn()} />);
+    renderWithIntl(<Modal onLanguageChange={vi.fn()} onClose={vi.fn()} />);
 
     // Settings dialog and heading.
     expect(screen.getByRole("dialog", { name: "Settings" })).toBeInTheDocument();
@@ -45,7 +46,7 @@ describe("Modal", () => {
 
   it("triggers the close function when the modal's upper close button is pressed", () => {
     const onClose = vi.fn();
-    render(<Modal onLanguageChange={vi.fn()} onClose={onClose} />);
+    renderWithIntl(<Modal onLanguageChange={vi.fn()} onClose={onClose} />);
 
     fireEvent.click(screen.getByRole("button", { name: "Close settings" }));
 
@@ -54,7 +55,7 @@ describe("Modal", () => {
 
   it("triggers the close function when the modal's lower close button is pressed", () => {
     const onClose = vi.fn();
-    render(<Modal onLanguageChange={vi.fn()} onClose={onClose} />);
+    renderWithIntl(<Modal onLanguageChange={vi.fn()} onClose={onClose} />);
 
     fireEvent.click(screen.getByRole("button", { name: "Close" }));
 
@@ -63,7 +64,7 @@ describe("Modal", () => {
 
   it("triggers the language change function when the language is changed in the component", () => {
     const onLanguageChange = vi.fn();
-    render(<Modal onLanguageChange={onLanguageChange} onClose={vi.fn()} />);
+    renderWithIntl(<Modal onLanguageChange={onLanguageChange} onClose={vi.fn()} />);
 
     fireEvent.click(screen.getByRole("button", { name: "Spanish" }));
 

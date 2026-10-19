@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import { fireEvent, screen, within } from "@testing-library/react";
+import { renderWithIntl } from "@/i18n/testUtils";
 import { useState } from "react";
 
 import { CardForm } from "./CardForm";
@@ -27,7 +28,7 @@ function lastState(fn: ReturnType<typeof vi.fn>) {
 describe("CardForm", () => {
   it("modifies the state when the values of the form change", () => {
     const onState = vi.fn();
-    render(<Harness onState={onState} />);
+    renderWithIntl(<Harness onState={onState} />);
 
     const card = screen.getByRole("group", { name: "Card" });
     fireEvent.change(within(card).getByLabelText("Width"), {
@@ -70,7 +71,7 @@ describe("CardForm", () => {
 
   it("starts with every property group on and editable, then locks them when turned off", () => {
     const onState = vi.fn();
-    render(<Harness onState={onState} />);
+    renderWithIntl(<Harness onState={onState} />);
 
     const toggles: [string, string, string][] = [
       ["Include text block?", "Text Properties", "Font size"],
