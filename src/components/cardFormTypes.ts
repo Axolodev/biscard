@@ -9,8 +9,10 @@ export interface CardDimensions {
 
 export interface TextBlockState {
   enabled: boolean;
-  width: number;
-  height: number;
+  xPosition: number;
+  yPosition: number;
+  zPosition: number;
+  lineHeight: number;
   thickness: number;
   fontSize: number;
   fontFamily: string;
@@ -26,8 +28,10 @@ export interface QrCodeBorderState {
 
 export interface QrCodeState {
   enabled: boolean;
-  width: number;
-  height: number;
+  moduleSize: number;
+  xPosition: number;
+  yPosition: number;
+  zPosition: number;
   thickness: number;
   qrContent: string;
   errorCorrection: QrErrorCorrection;
@@ -52,19 +56,23 @@ export const initialCardFormState: CardFormState = {
   card: { width: 88, height: 50, thickness: 2, borderRadius: 8 },
   textBlock: {
     enabled: true,
-    width: 43,
-    height: 43,
+    xPosition: -44,
+    yPosition: 15,
+    zPosition: 1,
+    lineHeight: 1.0,
     thickness: 2,
     fontSize: 16,
-    fontFamily: "Arial",
+    fontFamily: "Roboto_Regular",
     content: "Your name\nYour company",
   },
   qrCode: {
     enabled: true,
-    width: 43,
-    height: 43,
+    moduleSize: 1,
+    xPosition: 20,
+    yPosition: 0,
+    zPosition: 1,
     thickness: 2,
-    qrContent: "",
+    qrContent: "https://example.com/",
     errorCorrection: "M",
     border: { enabled: true, offset: 2, borderRadius: 4, borderThickness: 1 },
   },

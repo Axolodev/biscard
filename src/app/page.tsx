@@ -7,6 +7,7 @@ import type { CardFormState } from "@/components/cardFormTypes";
 import { Heading } from "@/components/Heading";
 import { Modal } from "@/components/Modal";
 import { Visualizer } from "@/components/Visualizer";
+import Container from "@/components/3d/Container";
 
 export default function Home() {
   const [form, setForm] = useState<CardFormState>(initialCardFormState);
@@ -21,7 +22,9 @@ export default function Home() {
           onChange={setForm}
           className="min-h-0 md:overflow-y-auto"
         />
-        <Visualizer onResetView={() => {}} onDownloadStl={() => {}} />
+        <Visualizer>
+          <Container cardModelProps={form} />
+        </Visualizer>
       </div>
       {settingsOpen && (
         <Modal
