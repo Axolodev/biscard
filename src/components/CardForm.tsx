@@ -23,11 +23,11 @@ const FONT_OPTIONS = [
     value: "Roboto_Regular",
   },
   {
-    label: "Roboto bold",
+    label: "Roboto Bold",
     value: "Roboto_Bold",
   },
   {
-    label: "Roboto extra bold",
+    label: "Roboto Extra Bold",
     value: "Roboto_ExtraBold",
   },
 ].map(({ value, label }) => ({ value, label }));
@@ -43,6 +43,8 @@ const ERROR_CORRECTION_OPTIONS: readonly {
 ];
 
 const GRID = "grid grid-cols-1 gap-x-2 gap-y-3 md:grid-cols-3";
+
+// TODO: Make it so text fields behave normally
 
 /**
  * The full card form: card dimensions plus the Text, QR Code and NFC Chip

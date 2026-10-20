@@ -56,14 +56,14 @@ export const initialCardFormState: CardFormState = {
   card: { width: 88, height: 50, thickness: 2, borderRadius: 8 },
   textBlock: {
     enabled: true,
-    xPosition: -44,
-    yPosition: 15,
+    xPosition: -40,
+    yPosition: 14,
     zPosition: 1,
     lineHeight: 1.0,
     thickness: 2,
     fontSize: 16,
-    fontFamily: "Roboto_Regular",
-    content: "Your name\nYour company",
+    fontFamily: "Roboto_ExtraBold",
+    content: "Your name\nYour company\n\nYour Title\nYour Website",
   },
   qrCode: {
     enabled: true,
@@ -76,5 +76,6 @@ export const initialCardFormState: CardFormState = {
     errorCorrection: "M",
     border: { enabled: true, offset: 2, borderRadius: 4, borderThickness: 1 },
   },
-  nfcChip: { enabled: true, diameter: 25, thickness: 2 },
+  // TODO: Add NFC Chip Position params
+  nfcChip: { enabled: true, diameter: 25, thickness: 1 },
 };

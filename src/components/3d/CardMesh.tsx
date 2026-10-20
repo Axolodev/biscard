@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { CardDimensions } from "../cardFormTypes";
 import useMeshStore from "@/store/meshStore";
 
-const roundedRectShape = (w: number, h: number, r: number) => {
+export const roundedRectShape =(w: number, h: number, r: number) => {
   r = Math.min(r, w / 2, h / 2);
   const x = -w / 2;
   const y = -h / 2;

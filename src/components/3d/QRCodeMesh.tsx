@@ -3,6 +3,7 @@ import { QrCodeState } from "../cardFormTypes";
 import * as THREE from "three";
 import QRCode from "qrcode";
 import useMeshStore from "@/store/meshStore";
+import { roundedRectShape } from "./CardMesh";
 
 const makeModuleSquare = (col: number, row: number, moduleSize: number) => {
   const x = col * moduleSize;
@@ -36,13 +37,39 @@ const QRCodeMesh = ({ qrCodeProps }: { qrCodeProps: QrCodeState }) => {
       if (value) {
         const yCoord = Math.floor(index / size);
         const xCoord = Math.floor(index % size);
-        shapes.push(makeModuleSquare(xCoord, yCoord, qrCodeProps.moduleSize));
+        // Shift the grid so the QR code is centered on the origin, where the
+        // border ring is also centered.
+        shapes.push(
+          makeModuleSquare(
+            xCoord - size / 2,
+            yCoord + 1 - size / 2,
+            qrCodeProps.moduleSize,
+          ),
+        );
       }
     });
 
+    const { border, moduleSize, thickness } = qrCodeProps;
+    const qrSize = size * moduleSize;
+
+    if (border.enabled && border.borderThickness > 0) {
+      const innerSide = qrSize + border.offset * 2;
+      const outerSide = innerSide + border.borderThickness * 2;
+      const ring = roundedRectShape(outerSide, outerSide, border.borderRadius);
+      ring.holes.push(
+        roundedRectShape(
+          innerSide,
+          innerSide,
+          Math.max(border.borderRadius - border.borderThickness, 0),
+        ),
+      );
+      shapes.push(ring);
+    }
+
     const geometry = new THREE.ExtrudeGeometry(shapes, {
-      depth: qrCodeProps.thickness,
+      depth: thickness,
       bevelEnabled: false,
+      curveSegments: 24,
     });
 
     geometry.center();
