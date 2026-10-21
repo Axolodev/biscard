@@ -1,10 +1,10 @@
-import { Base, Geometry } from "@react-three/csg";
+import { Base, Geometry, Subtraction } from "@react-three/csg";
 import { useEffect, useMemo, useState } from "react";
 import * as THREE from "three";
-import { CardDimensions } from "../cardFormTypes";
+import { CardDimensions, NfcChipState } from "../cardFormTypes";
 import useMeshStore from "@/store/meshStore";
 
-export const roundedRectShape =(w: number, h: number, r: number) => {
+export const roundedRectShape = (w: number, h: number, r: number) => {
   r = Math.min(r, w / 2, h / 2);
   const x = -w / 2;
   const y = -h / 2;
@@ -21,7 +21,13 @@ export const roundedRectShape =(w: number, h: number, r: number) => {
   return shape;
 };
 
-const CardMesh = ({ cardProps }: { cardProps: CardDimensions }) => {
+const CardMesh = ({
+  cardProps,
+  nfcChipProps,
+}: {
+  cardProps: CardDimensions;
+  nfcChipProps: NfcChipState;
+}) => {
   const cardGeometry = useMemo(() => {
     const geometry = new THREE.ExtrudeGeometry(
       roundedRectShape(
@@ -31,7 +37,8 @@ const CardMesh = ({ cardProps }: { cardProps: CardDimensions }) => {
       ),
       { depth: cardProps.thickness, bevelEnabled: false, curveSegments: 24 },
     );
-    geometry.translate(0, 0, -cardProps.thickness / 2);
+    geometry.center();
+
     return geometry;
   }, [
     cardProps.width,
@@ -39,6 +46,21 @@ const CardMesh = ({ cardProps }: { cardProps: CardDimensions }) => {
     cardProps.thickness,
     cardProps.borderRadius,
   ]);
+
+  const nfcGeometry = useMemo(() => {
+    const geometry = new THREE.ExtrudeGeometry(
+      roundedRectShape(
+        nfcChipProps.diameter,
+        nfcChipProps.diameter,
+        nfcChipProps.diameter,
+      ),
+      { depth: nfcChipProps.thickness, bevelEnabled: false, curveSegments: 24 },
+    );
+
+    geometry.center();
+
+    return geometry;
+  }, [nfcChipProps.diameter, nfcChipProps.thickness]);
 
   const [cardMeshRef, setCardMeshRef] = useState<THREE.Mesh | null>(null);
   const { setCardMesh } = useMeshStore();
@@ -49,12 +71,19 @@ const CardMesh = ({ cardProps }: { cardProps: CardDimensions }) => {
     setCardMesh(cardMeshRef);
   }, [cardMeshRef, setCardMesh]);
 
-  // TODO: Subtract NFC slot from card mesh when enabled.
   return (
     <mesh ref={setCardMeshRef}>
       <meshBasicMaterial color="white" />
       <Geometry>
-        <Base geometry={cardGeometry} />
+        <Base geometry={cardGeometry}></Base>
+        <Subtraction
+          position={[
+            nfcChipProps.xPosition,
+            nfcChipProps.yPosition,
+            nfcChipProps.zPosition,
+          ]}
+          geometry={nfcGeometry}
+        />
       </Geometry>
     </mesh>
   );

@@ -5,9 +5,37 @@ import JSZip from "jszip";
 import { toast } from "react-toastify";
 import { ErrorAlert } from "@/components/Alert";
 
-function convertMeshToStlBlob(mesh: THREE.Mesh) {
+const isVisibleInHierarchy = (object: THREE.Object3D) => {
+  for (let node: THREE.Object3D | null = object; node; node = node.parent) {
+    if (!node.visible) return false;
+  }
+  return true;
+};
+
+// STLExporter ignores `visible`, so it would also export the hidden operand
+// brushes that @react-three/csg keeps as children of the result mesh (the
+// uncut card and the cutter). Copy only the visible meshes into a fresh group.
+function collectVisibleMeshes(root: THREE.Object3D) {
+  root.updateWorldMatrix(true, true);
+
+  const group = new THREE.Group();
+  root.traverse((object) => {
+    if (!(object instanceof THREE.Mesh) || !isVisibleInHierarchy(object)) {
+      return;
+    }
+
+    const copy = new THREE.Mesh(object.geometry, object.material);
+    copy.applyMatrix4(object.matrixWorld);
+    group.add(copy);
+  });
+  group.updateMatrixWorld(true);
+
+  return group;
+}
+
+function convertMeshToStlBlob(mesh: THREE.Object3D) {
   const exporter = new STLExporter();
-  const data = exporter.parse(mesh, { binary: true });
+  const data = exporter.parse(collectVisibleMeshes(mesh), { binary: true });
   return new Blob([data], { type: "model/stl" });
 }
 

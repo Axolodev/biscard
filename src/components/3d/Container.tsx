@@ -14,7 +14,7 @@ interface ContainerProps {
 }
 
 const Container = ({ cardModelProps }: ContainerProps) => {
-  const { card, textBlock, qrCode } = cardModelProps;
+  const { card, textBlock, qrCode, nfcChip } = cardModelProps;
 
   const { setJointMesh } = useMeshStore();
   const [jointMeshRef, setJointMeshRef] = useState<THREE.Mesh | null>(null);
@@ -39,7 +39,7 @@ const Container = ({ cardModelProps }: ContainerProps) => {
 
         <directionalLight color="white" position={[0, 0, 5]} />
         <group ref={setJointMeshRef}>
-          <CardMesh cardProps={card} />
+          <CardMesh cardProps={card} nfcChipProps={nfcChip} />
 
           <Suspense fallback={null}>
             {textBlock.enabled && textBlock.content.length > 0 && (

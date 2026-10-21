@@ -73,7 +73,7 @@ export const initialCardFormState: CardFormState = {
     moduleSize: 1,
     xPosition: 20,
     yPosition: 0,
-    zPosition: 1,
+    zPosition: 2,
     thickness: 1,
     qrContent: "https://example.com/",
     errorCorrection: "M",
