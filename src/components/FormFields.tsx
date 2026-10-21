@@ -28,6 +28,7 @@ export interface NumberFieldProps {
   /** Unit shown at the end of the input. Defaults to "mm"; pass "" for none. */
   unit?: string;
   className?: string;
+  allowDecimals?: boolean;
 }
 
 /** Controlled number input with a trailing unit (Figma "Input" with suffix). */
@@ -37,6 +38,7 @@ export function NumberField({
   onValueChange,
   unit = "mm",
   className,
+  allowDecimals = false,
 }: NumberFieldProps) {
   const id = useId();
   return (
@@ -44,23 +46,19 @@ export function NumberField({
       <label className="input w-full">
         <input
           id={id}
-          type="text"
+          type="number"
           inputMode="numeric"
           step="any"
-          pattern="^\d*$"
+          pattern="^-?\d*$"
           value={value}
           onChange={(e) => {
             const next = e.target.value;
             let numericValue = Number.isNaN(Number(next))
               ? value
               : Number(next);
-            // Allow positive values only
-            if (numericValue < 0) {
-              numericValue = value;
-            }
 
             // Allow only decimal values
-            if (!Number.isInteger(numericValue)) {
+            if (!Number.isInteger(numericValue) && !allowDecimals) {
               numericValue = value;
             }
 
