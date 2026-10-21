@@ -1,20 +1,16 @@
 import { CameraControls, PerspectiveCamera } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
-import { CardFormState } from "../cardFormTypes";
 
 import useMeshStore from "@/store/meshStore";
+import useModelState from "@/store/modelState";
 import { Suspense, useEffect, useState } from "react";
 import CardMesh from "./CardMesh";
 import QRCodeMesh from "./QRCodeMesh";
 import TextBlockMesh from "./TextBlockMesh";
 
-interface ContainerProps {
-  cardModelProps: CardFormState;
-}
-
-const Container = ({ cardModelProps }: ContainerProps) => {
-  const { card, textBlock, qrCode, nfcChip } = cardModelProps;
+const Container = () => {
+  const { card, textBlock, qrCode, nfcChip } = useModelState((s) => s.form);
 
   const { setJointMesh } = useMeshStore();
   const [jointMeshRef, setJointMeshRef] = useState<THREE.Mesh | null>(null);

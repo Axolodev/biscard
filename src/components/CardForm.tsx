@@ -7,13 +7,10 @@ import {
   TextField,
 } from "./FormFields";
 import { PropertyGroup } from "./PropertyGroup";
-import type { CardFormState, QrErrorCorrection } from "./cardFormTypes";
+import type { QrErrorCorrection } from "./cardFormTypes";
+import useModelState from "@/store/modelState";
 
 export interface CardFormProps {
-  /** Current form values. Owned by the parent (a Zustand store later on). */
-  state: CardFormState;
-  /** Called with the complete next state whenever any field changes. */
-  onChange: (next: CardFormState) => void;
   className?: string;
 }
 
@@ -48,10 +45,12 @@ const GRID = "grid grid-cols-1 gap-x-2 gap-y-3 md:grid-cols-3";
 
 /**
  * The full card form: card dimensions plus the Text, QR Code and NFC Chip
- * property groups. Fully controlled; matches Figma nodes 19:8036 (desktop)
- * and 21:10471 (mobile).
+ * property groups. Matches Figma nodes 19:8036 (desktop)
+ * and 21:10471 (mobile). Reads and writes the modelState store.
  */
-export function CardForm({ state, onChange, className }: CardFormProps) {
+export function CardForm({ className }: CardFormProps) {
+  const state = useModelState((s) => s.form);
+  const onChange = useModelState((s) => s.setForm);
   const { card, textBlock, qrCode, nfcChip } = state;
 
   const setCard = (patch: Partial<typeof card>) =>
