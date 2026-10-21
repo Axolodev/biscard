@@ -8,7 +8,7 @@ import {
 } from "./FormFields";
 import { PropertyGroup } from "./PropertyGroup";
 import type { QrErrorCorrection } from "./cardFormTypes";
-import useModelState from "@/store/modelState";
+import useModelStore from "@/store/modelStore";
 
 export interface CardFormProps {
   className?: string;
@@ -42,15 +42,9 @@ const ERROR_CORRECTION_OPTIONS: readonly {
 const GRID = "grid grid-cols-1 gap-x-2 gap-y-3 md:grid-cols-3";
 
 // TODO: Make it so number fields behave normally
-
-/**
- * The full card form: card dimensions plus the Text, QR Code and NFC Chip
- * property groups. Matches Figma nodes 19:8036 (desktop)
- * and 21:10471 (mobile). Reads and writes the modelState store.
- */
 export function CardForm({ className }: CardFormProps) {
-  const state = useModelState((s) => s.form);
-  const onChange = useModelState((s) => s.setForm);
+  const state = useModelStore((s) => s.form);
+  const onChange = useModelStore((s) => s.setForm);
   const { card, textBlock, qrCode, nfcChip } = state;
 
   const setCard = (patch: Partial<typeof card>) =>

@@ -1,8 +1,9 @@
 import { create } from "zustand";
 import * as THREE from "three";
-import { STLExporter } from "three/examples/jsm/Addons.js";
+import { STLExporter } from "three/examples/jsm/exporters/STLExporter.js";
 import JSZip from "jszip";
 import { toast } from "react-toastify";
+import useModelStore from "@/store/modelStore";
 import { ErrorAlert } from "@/components/Alert";
 
 const isVisibleInHierarchy = (object: THREE.Object3D) => {
@@ -101,16 +102,17 @@ const useMeshStore = create<geometryStoreState>()((set, get) => ({
 
   downloadSeparateModels: () => {
     const { cardMesh, qrMesh, textMesh } = get();
+    const { qrCode, textBlock } = useModelStore.getState().form;
     const zip = new JSZip();
 
     // TODO: Disable downloading this and the text mesh when they're disabled.
     // Probably need to move the state to zustand for that.
-    if (qrMesh) {
+    if (qrMesh && qrCode.enabled) {
       const qrBlob = convertMeshToStlBlob(qrMesh);
       zip.file("qrcode.stl", qrBlob);
     }
 
-    if (textMesh) {
+    if (textMesh && textBlock.enabled) {
       const textBlob = convertMeshToStlBlob(textMesh);
       zip.file("text.stl", textBlob);
     }

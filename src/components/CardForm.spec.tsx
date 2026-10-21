@@ -3,13 +3,13 @@ import { fireEvent, render, screen, within } from "@testing-library/react";
 
 import { CardForm } from "./CardForm";
 import { initialCardFormState } from "./cardFormTypes";
-import useModelState from "@/store/modelState";
+import useModelStore from "@/store/modelStore";
 
-const currentState = () => useModelState.getState().form;
+const currentState = () => useModelStore.getState().form;
 
 describe("CardForm", () => {
   beforeEach(() => {
-    useModelState.setState({ form: initialCardFormState });
+    useModelStore.setState({ form: initialCardFormState });
   });
 
   it("modifies the state when the values of the form change", () => {
@@ -23,23 +23,23 @@ describe("CardForm", () => {
       ...initialCardFormState,
       card: { ...initialCardFormState.card, width: 90 },
     });
-    expect(within(card).getByLabelText("Width")).toHaveValue("90");
+    expect(within(card).getByLabelText("Width")).toHaveValue(90);
 
     const text = screen.getByRole("group", { name: "Text Properties" });
     fireEvent.change(within(text).getByLabelText("Text content"), {
       target: { value: "Hello" },
     });
     fireEvent.change(within(text).getByLabelText("Font"), {
-      target: { value: "Verdana" },
+      target: { value: "Roboto_Bold" },
     });
     expect(currentState().card.width).toBe(90);
     expect(currentState().textBlock.content).toBe("Hello");
-    expect(currentState().textBlock.fontFamily).toBe("Verdana");
+    expect(currentState().textBlock.fontFamily).toBe("Roboto_Bold");
 
     const qr = screen.getByRole("group", { name: "QR Code Properties" });
     fireEvent.change(
       within(qr).getByLabelText("QR code text (can be a link)"),
-      { target: { value: "https://example.com/" } }
+      { target: { value: "https://example.com/" } },
     );
     fireEvent.change(within(qr).getByLabelText("Border radius"), {
       target: { value: "5" },
@@ -74,7 +74,7 @@ describe("CardForm", () => {
       expect(toggle).not.toBeChecked();
       expect(screen.getByLabelText(fieldLabel)).toBeDisabled();
       expect(
-        screen.queryByRole("group", { name: groupName })
+        screen.queryByRole("group", { name: groupName }),
       ).not.toBeInTheDocument();
     }
 
