@@ -1,5 +1,7 @@
 import useMeshStore from "@/store/meshStore";
 import type { ReactNode } from "react";
+import { toast } from "react-toastify";
+import { InfoAlert } from "./Alert";
 
 export interface VisualizerProps {
   /** Content rendered inside the 3d space (e.g. the card preview/canvas). */
@@ -30,6 +32,7 @@ export function Visualizer({ children }: VisualizerProps) {
           <button
             type="button"
             onClick={() => {
+              toast(<InfoAlert message="Downloading model..." />);
               downloadModel();
             }}
             className="btn btn-primary join-item"
@@ -50,6 +53,9 @@ export function Visualizer({ children }: VisualizerProps) {
               <li>
                 <button
                   onClick={() => {
+                    toast(
+                      <InfoAlert message="Downloading separate models..." />,
+                    );
                     downloadSeparateModels();
                   }}
                 >

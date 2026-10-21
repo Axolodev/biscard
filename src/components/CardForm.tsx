@@ -44,7 +44,7 @@ const ERROR_CORRECTION_OPTIONS: readonly {
 
 const GRID = "grid grid-cols-1 gap-x-2 gap-y-3 md:grid-cols-3";
 
-// TODO: Make it so text fields behave normally
+// TODO: Make it so number fields behave normally
 
 /**
  * The full card form: card dimensions plus the Text, QR Code and NFC Chip
@@ -102,7 +102,7 @@ export function CardForm({ state, onChange, className }: CardFormProps) {
         onToggleChange={(enabled) => setText({ enabled })}
       >
         <div className={GRID}>
-          <div className="grid grid-cols-3 gap-x-2 md:col-span-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-2 md:col-span-3">
             <NumberField
               label="X position"
               value={textBlock.xPosition}
@@ -164,7 +164,7 @@ export function CardForm({ state, onChange, className }: CardFormProps) {
         onToggleChange={(enabled) => setQr({ enabled })}
       >
         <div className={GRID}>
-          <div className="grid grid-cols-3 gap-x-2 md:col-span-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-2 md:col-span-3">
             <NumberField
               label="X position"
               value={qrCode.xPosition}
@@ -246,6 +246,23 @@ export function CardForm({ state, onChange, className }: CardFormProps) {
         checked={nfcChip.enabled}
         onToggleChange={(enabled) => setNfc({ enabled })}
       >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-2 md:col-span-3">
+          <NumberField
+            label="X position"
+            value={nfcChip.xPosition}
+            onValueChange={(xPosition) => setNfc({ xPosition })}
+          />
+          <NumberField
+            label="Y Position"
+            value={nfcChip.yPosition}
+            onValueChange={(yPosition) => setNfc({ yPosition })}
+          />
+          <NumberField
+            label="Z Position"
+            value={nfcChip.zPosition}
+            onValueChange={(zPosition) => setNfc({ zPosition })}
+          />
+        </div>
         <div className="grid grid-cols-1 gap-x-2 md:grid-cols-2">
           <NumberField
             label="Diameter"

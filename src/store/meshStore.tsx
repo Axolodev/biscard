@@ -2,6 +2,8 @@ import { create } from "zustand";
 import * as THREE from "three";
 import { STLExporter } from "three/examples/jsm/Addons.js";
 import JSZip from "jszip";
+import { toast } from "react-toastify";
+import { ErrorAlert } from "@/components/Alert";
 
 function convertMeshToStlBlob(mesh: THREE.Mesh) {
   const exporter = new STLExporter();
@@ -26,7 +28,6 @@ function downloadMeshAsStl({
   mesh: THREE.Mesh;
   filename: string;
 }) {
-  // TODO: show notification about current model being prepared for download
   const blob = convertMeshToStlBlob(mesh);
 
   downloadBlobAsFile(blob, filename);
@@ -63,8 +64,7 @@ const useMeshStore = create<geometryStoreState>()((set, get) => ({
   downloadModel: () => {
     const { jointMesh: jointModel } = get();
     if (!jointModel) {
-      // TODO: show warning notification
-      console.log("No joint Model found");
+      toast(<ErrorAlert message="There was an error downloading the model." />);
       return;
     }
 

@@ -42,6 +42,9 @@ export interface NfcChipState {
   enabled: boolean;
   diameter: number;
   thickness: number;
+  xPosition: number;
+  yPosition: number;
+  zPosition: number;
 }
 
 /** Shape of the whole card form. */
@@ -53,14 +56,14 @@ export interface CardFormState {
 }
 
 export const initialCardFormState: CardFormState = {
-  card: { width: 88, height: 50, thickness: 2, borderRadius: 8 },
+  card: { width: 88, height: 50, thickness: 3, borderRadius: 8 },
   textBlock: {
     enabled: true,
     xPosition: -40,
     yPosition: 14,
     zPosition: 1,
     lineHeight: 1.0,
-    thickness: 2,
+    thickness: 1,
     fontSize: 16,
     fontFamily: "Roboto_ExtraBold",
     content: "Your name\nYour company\n\nYour Title\nYour Website",
@@ -71,11 +74,17 @@ export const initialCardFormState: CardFormState = {
     xPosition: 20,
     yPosition: 0,
     zPosition: 1,
-    thickness: 2,
+    thickness: 1,
     qrContent: "https://example.com/",
     errorCorrection: "M",
     border: { enabled: true, offset: 2, borderRadius: 4, borderThickness: 1 },
   },
-  // TODO: Add NFC Chip Position params
-  nfcChip: { enabled: true, diameter: 25, thickness: 1 },
+  nfcChip: {
+    enabled: true,
+    diameter: 25,
+    thickness: 2,
+    xPosition: 0,
+    yPosition: 0,
+    zPosition: 0,
+  },
 };
