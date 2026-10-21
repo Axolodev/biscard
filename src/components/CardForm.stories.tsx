@@ -1,29 +1,21 @@
-import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { useEffect } from "react";
+import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
-import { CardForm } from './CardForm';
-import { initialCardFormState } from './cardFormTypes';
+import { CardForm } from "./CardForm";
+import { initialCardFormState } from "./cardFormTypes";
+import useModelStore from "@/store/modelStore";
 
 const meta = {
-  title: 'Components/CardForm',
+  title: "Components/CardForm",
   component: CardForm,
-  tags: ['autodocs'],
-  args: {
-    state: initialCardFormState,
-    onChange: () => {},
-  },
+  tags: ["autodocs"],
   render: function Render(args) {
-    const [state, setState] = useState(args.state);
+    useEffect(() => {
+      useModelStore.setState({ form: initialCardFormState });
+    }, []);
     return (
       <div className="max-w-3xl">
-        <CardForm
-          {...args}
-          state={state}
-          onChange={(next) => {
-            setState(next);
-            args.onChange(next);
-          }}
-        />
+        <CardForm {...args} />
       </div>
     );
   },
