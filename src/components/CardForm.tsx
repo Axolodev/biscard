@@ -9,7 +9,7 @@ import {
 } from "./FormFields";
 import { PropertyGroup } from "./PropertyGroup";
 import type { QrErrorCorrection } from "./cardFormTypes";
-import useModelStore from "@/store/modelStore";
+import useFormStateStore from "@/store/formStateStore";
 
 export interface CardFormProps {
   className?: string;
@@ -42,8 +42,8 @@ const GRID = "grid grid-cols-1 gap-x-2 gap-y-3 md:grid-cols-3";
 // TODO: Make it so number fields behave normally
 export function CardForm({ className }: CardFormProps) {
   const t = useTranslations("cardForm");
-  const state = useModelStore((s) => s.form);
-  const onChange = useModelStore((s) => s.setForm);
+  const state = useFormStateStore((s) => s.form);
+  const onChange = useFormStateStore((s) => s.setForm);
   const { card, textBlock, qrCode, nfcChip } = state;
   const errorCorrectionOptions = (
     Object.keys(ERROR_CORRECTION_KEYS) as QrErrorCorrection[]

@@ -7,6 +7,7 @@ import { Modal } from "@/components/Modal";
 import { Visualizer } from "@/components/Visualizer";
 import { WelcomeModal } from "@/components/WelcomeModal";
 import { hasSeenWelcome, markWelcomeSeen } from "@/components/welcomeCookie";
+import { FormStateHydrator } from "@/store/FormStateHydrator";
 import { useEffect, useState } from "react";
 import { Slide, ToastContainer } from "react-toastify";
 
@@ -28,6 +29,7 @@ export default function Home() {
 
   return (
     <div>
+      <FormStateHydrator />
       <ToastContainer
         position="bottom-right"
         autoClose={5000}
