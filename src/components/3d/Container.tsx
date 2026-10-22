@@ -3,14 +3,14 @@ import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
 
 import useMeshStore from "@/store/meshStore";
-import useModelStore from "@/store/modelStore";
+import useFormStateStore from "@/store/formStateStore";
 import { Suspense, useEffect, useState } from "react";
 import CardMesh from "./CardMesh";
 import QRCodeMesh from "./QRCodeMesh";
 import TextBlockMesh from "./TextBlockMesh";
 
 const Container = () => {
-  const { card, textBlock, qrCode, nfcChip } = useModelStore((s) => s.form);
+  const { card, textBlock, qrCode, nfcChip } = useFormStateStore((s) => s.form);
 
   const { setJointMesh } = useMeshStore();
   const [jointMeshRef, setJointMeshRef] = useState<THREE.Mesh | null>(null);

@@ -4,13 +4,13 @@ import { renderWithIntl } from "@/i18n/testUtils";
 
 import { CardForm } from "./CardForm";
 import { initialCardFormState } from "./cardFormTypes";
-import useModelStore from "@/store/modelStore";
+import useFormStateStore from "@/store/formStateStore";
 
-const currentState = () => useModelStore.getState().form;
+const currentState = () => useFormStateStore.getState().form;
 
 describe("CardForm", () => {
   beforeEach(() => {
-    useModelStore.setState({ form: initialCardFormState });
+    useFormStateStore.setState({ form: initialCardFormState });
   });
 
   it("modifies the state when the values of the form change", () => {
