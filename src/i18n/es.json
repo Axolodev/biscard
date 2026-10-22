@@ -81,13 +81,13 @@
     "closeLabel": "Cerrar bienvenida",
     "close": "Cerrar",
     "closeBackdrop": "Cerrar fondo",
-    "whatTitle": "¿Qué es esto?",
-    "whatBody": "G3co (se pronuncia “Gecko” 🦎) es una app que crea modelos imprimibles en 3D de tarjetas de presentación compatibles con chips NFC y códigos QR.",
-    "whoTitle": "¿Quién lo hizo?",
-    "whoBody": "Fue creado por <author>Roberto Reyes</author> como una forma de aprender más sobre el manejo de objetos 3D con React Three Fiber.",
-    "cookiesTitle": "¿Este sitio usa cookies?",
-    "cookiesBody": "¡Sí! Pero solo las funcionales. Usamos tu navegador para guardar el idioma, el tema y la configuración del modelo. Por ejemplo, para no mostrar esta ventana si vuelves a visitar la página.",
-    "problemsTitle": "¿Qué hago si encuentro problemas con la app?",
-    "problemsBody": "Repórtalos creando un issue en la <issues>página de Issues de GitHub</issues> o escríbeme en Bluesky <bluesky>@robruizr.dev</bluesky>."
+    "whatTitle": "¿Qué es esta app?",
+    "whatBody": "G3co (se dice “Gecko” 🦎) es una app para crear modelos de tarjetas de presentación imprimibles en 3D. Estos modelos son compatibles con chips NFC y códigos QR.",
+    "whoTitle": "¿Quién hizo esta app?",
+    "whoBody": "Esta app fue creada por <author>Roberto Reyes</author> para aprender más sobre el manejo de objetos 3D con React Three Fiber.",
+    "cookiesTitle": "La app usa cookies?",
+    "cookiesBody": "Sí, Pero solo funcionales. La app usa tu navegador para guardar el idioma, el tema y la configuración del modelo. Un ejemplo es solo mostrar este pop-up la primera vez que visitas la página.",
+    "problemsTitle": "¿Qué hago si encuentro errores en la app?",
+    "problemsBody": "Repórtalos creando un issue en la <issues>página de Issues de GitHub</issues> o envíame un mensaje en Bluesky <bluesky>@robruizr.dev</bluesky>."
   }
 }
