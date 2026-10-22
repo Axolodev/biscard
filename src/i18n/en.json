@@ -9,7 +9,12 @@
   },
   "visualizer": {
     "resetView": "Reset View",
-    "downloadStl": "Download .stl"
+    "downloadStl": "Download .stl",
+    "downloadingModel": "Downloading model...",
+    "downloadingSeparate": "Downloading separate models...",
+    "downloadZip": "Download all as zip",
+    "openDownloadMenu": "Open download submenu",
+    "downloadError": "There was an error downloading the model."
   },
   "modal": {
     "ariaLabel": "Settings",
@@ -42,7 +47,8 @@
       "legend": "Text Properties",
       "fontSize": "Font size",
       "font": "Font",
-      "content": "Text content"
+      "content": "Text content",
+      "lineHeight": "Line height"
     },
     "qr": {
       "toggle": "Include QR Code?",
@@ -56,12 +62,16 @@
       "borderToggle": "Include border around QR code?",
       "borderOffset": "Offset from QR code",
       "borderRadius": "Border radius",
-      "borderThickness": "Border thickness"
+      "borderThickness": "Border thickness",
+      "moduleSize": "Module size"
     },
     "nfc": {
       "toggle": "Leave slot for an NFC chip?",
       "legend": "NFC Chip Properties",
       "diameter": "Diameter"
-    }
+    },
+    "xPosition": "X position",
+    "yPosition": "Y Position",
+    "zPosition": "Z Position"
   }
 }

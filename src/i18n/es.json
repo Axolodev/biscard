@@ -9,7 +9,12 @@
   },
   "visualizer": {
     "resetView": "Restablecer vista",
-    "downloadStl": "Descargar .stl"
+    "downloadStl": "Descargar .stl",
+    "downloadingModel": "Descargando modelo...",
+    "downloadingSeparate": "Descargando modelos por separado...",
+    "downloadZip": "Descargar todo en zip",
+    "openDownloadMenu": "Abrir submenú de descarga",
+    "downloadError": "Ocurrió un error al descargar el modelo."
   },
   "modal": {
     "ariaLabel": "Configuración",
@@ -42,7 +47,8 @@
       "legend": "Propiedades del texto",
       "fontSize": "Tamaño de fuente",
       "font": "Fuente",
-      "content": "Contenido del texto"
+      "content": "Contenido del texto",
+      "lineHeight": "Interlineado"
     },
     "qr": {
       "toggle": "¿Incluir código QR?",
@@ -56,12 +62,16 @@
       "borderToggle": "¿Incluir borde alrededor del código QR?",
       "borderOffset": "Separación del código QR",
       "borderRadius": "Radio del borde",
-      "borderThickness": "Grosor del borde"
+      "borderThickness": "Grosor del borde",
+      "moduleSize": "Tamaño de módulo"
     },
     "nfc": {
       "toggle": "¿Dejar espacio para un chip NFC?",
       "legend": "Propiedades del chip NFC",
       "diameter": "Diámetro"
-    }
+    },
+    "xPosition": "Posición X",
+    "yPosition": "Posición Y",
+    "zPosition": "Posición Z"
   }
 }

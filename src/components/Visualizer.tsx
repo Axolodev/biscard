@@ -1,11 +1,10 @@
 import { useTranslations } from "next-intl";
+import useMeshStore from "@/store/meshStore";
 import type { ReactNode } from "react";
+import { toast } from "react-toastify";
+import { InfoAlert } from "./Alert";
 
 export interface VisualizerProps {
-  /** Called when the "Reset View" button is clicked. */
-  onResetView: () => void;
-  /** Called when the "Download .stl" button is clicked. */
-  onDownloadStl: () => void;
   /** Content rendered inside the 3d space (e.g. the card preview/canvas). */
   children?: ReactNode;
 }
@@ -17,35 +16,82 @@ export interface VisualizerProps {
  * The component itself only renders the frame and buttons — the actual 3d
  * scene is supplied by the caller via `children`.
  */
-export function Visualizer({
-  onResetView,
-  onDownloadStl,
-  children,
-}: VisualizerProps) {
+export function Visualizer({ children }: VisualizerProps) {
   const t = useTranslations("visualizer");
+  const { downloadModel, downloadSeparateModels } = useMeshStore();
+
   return (
     <div className="border-base-content/10 bg-base-300 flex flex-col overflow-hidden rounded-box border">
       <div className="bg-base-200 flex items-center justify-center gap-4 p-6">
         <button
           type="button"
-          onClick={onResetView}
+          onClick={() => {}}
           className="btn btn-outline btn-accent"
         >
           {t("resetView")}
         </button>
-        <button
-          type="button"
-          onClick={onDownloadStl}
-          className="btn btn-primary"
-        >
-          <DownloadIcon className="h-4 w-4" />
-          {t("downloadStl")}
-        </button>
+        <div className="join">
+          <button
+            type="button"
+            onClick={() => {
+              toast(<InfoAlert message={t("downloadingModel")} />);
+              downloadModel(t("downloadError"));
+            }}
+            className="btn btn-primary join-item"
+          >
+            <DownloadIcon className="h-4 w-4" />
+            {t("downloadStl")}
+          </button>
+          <div className="dropdown dropdown-bottom join-item btn btn-primary p-0">
+            <div tabIndex={0} role="button" aria-label={t("openDownloadMenu")}>
+              <div className="w-4 m-4">
+                <DownChevron className="h-4 w-4" />
+              </div>
+            </div>
+            <ul
+              tabIndex={-1}
+              className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+            >
+              <li>
+                <button
+                  onClick={() => {
+                    toast(
+                      <InfoAlert message={t("downloadingSeparate")} />,
+                    );
+                    downloadSeparateModels();
+                  }}
+                >
+                  <DownloadIcon className="h-4 w-4" />
+                  {t("downloadZip")}
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
       <div className="flex min-h-96 flex-1 items-center justify-center p-6">
         {children ?? <div />}
       </div>
     </div>
+  );
+}
+
+function DownChevron({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      stroke="currentColor"
+      className={className}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="m19.5 8.25-7.5 7.5-7.5-7.5"
+      />
+    </svg>
   );
 }
 

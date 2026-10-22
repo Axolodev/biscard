@@ -35,7 +35,9 @@ export default defineConfig({
       },
       {
         plugins: [react()],
-        resolve: { alias: { '@': path.join(dirname, 'src') } },
+        resolve: {
+          alias: { '@': path.join(dirname, 'src') },
+        },
         test: {
           name: 'unit',
           environment: 'jsdom',
