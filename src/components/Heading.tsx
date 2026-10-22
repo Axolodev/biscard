@@ -14,6 +14,8 @@ export interface HeadingProps {
    * expected to use this to open a settings modal.
    */
   onSettingsClick: () => void;
+  /** Called when the help (question mark) button is clicked; opens the welcome modal. */
+  onWelcomeClick: () => void;
 }
 
 /**
@@ -23,7 +25,7 @@ export interface HeadingProps {
  * - The gear icon is a plain button — it invokes `onSettingsClick` and
  *   leaves opening any modal to the caller.
  */
-export function Heading({ onSettingsClick }: HeadingProps) {
+export function Heading({ onSettingsClick, onWelcomeClick }: HeadingProps) {
   const t = useTranslations("heading");
   return (
     <header className="navbar text-base-content border-base-content border-b px-0">
@@ -40,6 +42,14 @@ export function Heading({ onSettingsClick }: HeadingProps) {
         >
           <GithubIcon className="h-5 w-5" />
         </a>
+        <button
+          type="button"
+          onClick={onWelcomeClick}
+          aria-label={t("welcomeLabel")}
+          className="btn btn-ghost btn-circle"
+        >
+          <QuestionIcon className="h-5 w-5" />
+        </button>
         <button
           type="button"
           onClick={onSettingsClick}
@@ -62,6 +72,24 @@ function GithubIcon({ className }: { className?: string }) {
       aria-hidden="true"
     >
       <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.333-1.755-1.333-1.755-1.089-.744.084-.729.084-.729 1.205.084 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.76-1.605-2.665-.303-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23a11.5 11.5 0 0 1 3.003-.404c1.02.005 2.047.138 3.003.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .321.218.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+    </svg>
+  );
+}
+
+/** heroicons micro question-mark-circle (Figma node 21:11048). */
+function QuestionIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 36 36"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M33.75 18C33.75 26.6985 26.6985 33.75 18 33.75C9.30152 33.75 2.25 26.6985 2.25 18C2.25 9.30152 9.30152 2.25 18 2.25C26.6985 2.25 33.75 9.30152 33.75 18ZM20.25 25.875C20.25 27.1176 19.2426 28.125 18 28.125C16.7574 28.125 15.75 27.1176 15.75 25.875C15.75 24.6324 16.7574 23.625 18 23.625C19.2426 23.625 20.25 24.6324 20.25 25.875ZM16.4093 11.909C17.288 11.0303 18.7126 11.0303 19.5913 11.909C20.47 12.7877 20.47 14.2123 19.5913 15.091C19.313 15.3693 18.9842 15.5572 18.6361 15.6591C17.6041 15.9612 16.3128 16.933 16.3128 18.5625V19.1255C16.3128 20.0575 17.0683 20.813 18.0003 20.813C18.9323 20.813 19.6878 20.0575 19.6878 19.1255V18.8668C20.527 18.6034 21.3163 18.139 21.9778 17.4775C24.1745 15.2808 24.1745 11.7192 21.9778 9.52252C19.7811 7.32583 16.2195 7.32583 14.0228 9.52252C13.3638 10.1815 13.3638 11.25 14.0228 11.909C14.6818 12.568 15.7503 12.568 16.4093 11.909Z"
+      />
     </svg>
   );
 }

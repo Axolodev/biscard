@@ -5,7 +5,8 @@
   },
   "heading": {
     "githubLabel": "Ver código fuente en GitHub",
-    "settingsLabel": "Abrir configuración"
+    "settingsLabel": "Abrir configuración",
+    "welcomeLabel": "Mostrar mensaje de bienvenida"
   },
   "visualizer": {
     "resetView": "Resetear vista",
@@ -73,5 +74,20 @@
     "xPosition": "Posición X",
     "yPosition": "Posición Y",
     "zPosition": "Posición Z"
+  },
+  "welcome": {
+    "ariaLabel": "Bienvenida",
+    "title": "¡Bienvenido! 🎉",
+    "closeLabel": "Cerrar bienvenida",
+    "close": "Cerrar",
+    "closeBackdrop": "Cerrar fondo",
+    "whatTitle": "¿Qué es esto?",
+    "whatBody": "G3co (se pronuncia “Gecko” 🦎) es una app que crea modelos imprimibles en 3D de tarjetas de presentación compatibles con chips NFC y códigos QR.",
+    "whoTitle": "¿Quién lo hizo?",
+    "whoBody": "Fue creado por <author>Roberto Reyes</author> como una forma de aprender más sobre el manejo de objetos 3D con React Three Fiber.",
+    "cookiesTitle": "¿Este sitio usa cookies?",
+    "cookiesBody": "¡Sí! Pero solo las funcionales. Usamos tu navegador para guardar el idioma, el tema y la configuración del modelo. Por ejemplo, para no mostrar esta ventana si vuelves a visitar la página.",
+    "problemsTitle": "¿Qué hago si encuentro problemas con la app?",
+    "problemsBody": "Repórtalos creando un issue en la <issues>página de Issues de GitHub</issues> o escríbeme en Bluesky <bluesky>@robruizr.dev</bluesky>."
   }
 }
