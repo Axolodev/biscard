@@ -1,15 +1,15 @@
-import type { Preview } from '@storybook/nextjs-vite'
-import React from 'react'
+import type { Preview } from "@storybook/nextjs-vite";
+import React from "react";
 
-import '../src/app/globals.css'
-import { LocaleProvider } from '../src/i18n/LocaleProvider'
+import "../src/app/globals.css";
+import { LocaleProvider } from "../src/i18n/LocaleProvider";
 
 const preview: Preview = {
   parameters: {
     controls: {
       matchers: {
-       color: /(background|color)$/i,
-       date: /Date$/i,
+        color: /(background|color)$/i,
+        date: /Date$/i,
       },
     },
 
@@ -17,16 +17,23 @@ const preview: Preview = {
       // 'todo' - show a11y violations in the test UI only
       // 'error' - fail CI on a11y violations
       // 'off' - skip a11y checks entirely
-      test: 'todo'
-    }
+      test: "todo",
+    },
   },
 
   decorators: [
     (Story) =>
       React.createElement(
-        'div',
-        { 'data-theme': 'biscard', className: 'bg-base-100 text-base-content min-h-screen' },
-        React.createElement(LocaleProvider, { initialLocale: 'en' }, React.createElement(Story))
+        "div",
+        {
+          "data-theme": "G3co",
+          className: "bg-base-100 text-base-content min-h-screen",
+        },
+        React.createElement(
+          LocaleProvider,
+          { initialLocale: "en" },
+          React.createElement(Story),
+        ),
       ),
   ],
 };

@@ -3,10 +3,10 @@ import { useTranslations } from "next-intl";
 /**
  * Repository the GitHub icon links out to. Fixed per the design — not configurable.
  */
-export const HEADING_GITHUB_URL = "https://github.com/Axolodev/biscard";
+export const HEADING_GITHUB_URL = "https://github.com/Axolodev/g3co";
 
 /** Title text shown in the heading. */
-export const HEADING_TITLE = "CardGen";
+export const HEADING_TITLE = "G3co";
 
 export interface HeadingProps {
   /**

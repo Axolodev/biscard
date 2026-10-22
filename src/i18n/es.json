@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "title": "CardGen",
+    "title": "G3co",
     "description": "Genera un modelo personalizado imprimible en 3D con código QR y espacio para chip NFC."
   },
   "heading": {
@@ -26,7 +26,7 @@
     "theme": "Tema",
     "language": "Idioma",
     "themes": {
-      "biscard": "Biscard",
+      "g3co": "g3co",
       "retro": "Retro",
       "cyberpunk": "Cyberpunk",
       "valentine": "Valentine",

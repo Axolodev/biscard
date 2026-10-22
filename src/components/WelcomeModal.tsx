@@ -7,7 +7,7 @@ export const WELCOME_APP_VERSION = "v0.1.0 alpha";
 
 const LINKS = {
   author: "https://github.com/Axolodev",
-  issues: "https://github.com/Axolodev/biscard/issues",
+  issues: "https://github.com/Axolodev/g3co/issues",
   bluesky: "https://bsky.app/profile/robruizr.dev",
 };
 

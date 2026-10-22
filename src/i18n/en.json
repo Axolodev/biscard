@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "title": "CardGen",
+    "title": "G3co",
     "description": "Generate custom 3d-printed business cards with QR code and NFC chip support."
   },
   "heading": {
@@ -26,7 +26,7 @@
     "theme": "Theme",
     "language": "Language",
     "themes": {
-      "biscard": "Default",
+      "g3co": "Default",
       "retro": "Retro",
       "cyberpunk": "Cyberpunk",
       "valentine": "Valentine",

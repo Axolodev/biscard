@@ -21,7 +21,7 @@ const LANGUAGES: Language[] = ["en", "es"];
  * themes. All five are enabled via the `themes:` list in
  * `src/app/globals.css`.
  */
-const THEMES = ["biscard", "retro", "cyberpunk", "valentine", "aqua"] as const;
+const THEMES = ["g3co", "retro", "cyberpunk", "valentine", "aqua"] as const;
 
 export interface ModalProps {
   /**
