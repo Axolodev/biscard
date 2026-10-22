@@ -1,0 +1,77 @@
+{
+  "metadata": {
+    "title": "CardGen",
+    "description": "Genera tarjetas de presentación personalizadas impresas en 3D con código QR y compatibilidad con chip NFC."
+  },
+  "heading": {
+    "githubLabel": "Ver código fuente en GitHub",
+    "settingsLabel": "Abrir configuración"
+  },
+  "visualizer": {
+    "resetView": "Restablecer vista",
+    "downloadStl": "Descargar .stl",
+    "downloadingModel": "Descargando modelo...",
+    "downloadingSeparate": "Descargando modelos por separado...",
+    "downloadZip": "Descargar todo en zip",
+    "openDownloadMenu": "Abrir submenú de descarga",
+    "downloadError": "Ocurrió un error al descargar el modelo."
+  },
+  "modal": {
+    "ariaLabel": "Configuración",
+    "title": "Configuración",
+    "closeSettings": "Cerrar configuración",
+    "close": "Cerrar",
+    "closeBackdrop": "Cerrar fondo",
+    "theme": "Tema",
+    "language": "Idioma",
+    "themes": {
+      "biscard": "Predeterminado",
+      "retro": "Retro",
+      "cyberpunk": "Cyberpunk",
+      "valentine": "Valentine",
+      "aqua": "Aqua"
+    },
+    "languages": {
+      "en": "Inglés",
+      "es": "Español"
+    }
+  },
+  "cardForm": {
+    "card": "Tarjeta",
+    "width": "Ancho",
+    "height": "Alto",
+    "thickness": "Grosor",
+    "borderRadius": "Radio del borde",
+    "text": {
+      "toggle": "¿Incluir bloque de texto?",
+      "legend": "Propiedades del texto",
+      "fontSize": "Tamaño de fuente",
+      "font": "Fuente",
+      "content": "Contenido del texto",
+      "lineHeight": "Interlineado"
+    },
+    "qr": {
+      "toggle": "¿Incluir código QR?",
+      "legend": "Propiedades del código QR",
+      "content": "Texto del código QR (puede ser un enlace)",
+      "errorCorrection": "Corrección de errores",
+      "errorLow": "Baja (7%)",
+      "errorMedium": "Media (15%)",
+      "errorQuartile": "Cuartil (25%)",
+      "errorHigh": "Alta (30%)",
+      "borderToggle": "¿Incluir borde alrededor del código QR?",
+      "borderOffset": "Separación del código QR",
+      "borderRadius": "Radio del borde",
+      "borderThickness": "Grosor del borde",
+      "moduleSize": "Tamaño de módulo"
+    },
+    "nfc": {
+      "toggle": "¿Dejar espacio para un chip NFC?",
+      "legend": "Propiedades del chip NFC",
+      "diameter": "Diámetro"
+    },
+    "xPosition": "Posición X",
+    "yPosition": "Posición Y",
+    "zPosition": "Posición Z"
+  }
+}

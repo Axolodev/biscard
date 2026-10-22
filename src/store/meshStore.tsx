@@ -69,7 +69,7 @@ interface geometryStoreState {
 
   jointMesh: THREE.Mesh | null;
 
-  downloadModel: () => void;
+  downloadModel: (errorMessage: string) => void;
   downloadSeparateModels: () => void;
 
   setCardMesh: (cardMesh: THREE.Mesh | null) => void;
@@ -90,10 +90,10 @@ const useMeshStore = create<geometryStoreState>()((set, get) => ({
   setQrMesh: (qrMesh) => set(() => ({ qrMesh: qrMesh })),
   setJointMesh: (jointModel) => set(() => ({ jointMesh: jointModel })),
 
-  downloadModel: () => {
+  downloadModel: (errorMessage) => {
     const { jointMesh: jointModel } = get();
     if (!jointModel) {
-      toast(<ErrorAlert message="There was an error downloading the model." />);
+      toast(<ErrorAlert message={errorMessage} />);
       return;
     }
 
