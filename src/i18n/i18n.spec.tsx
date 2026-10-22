@@ -55,7 +55,7 @@ describe("language control in the settings modal", () => {
   it("switches every string to Spanish and stores the choice in the cookie", () => {
     renderWithIntl(
       <>
-        <Heading onSettingsClick={() => {}} />
+        <Heading onSettingsClick={() => {}} onWelcomeClick={() => {}} />
         <Modal onClose={() => {}} />
       </>,
     );

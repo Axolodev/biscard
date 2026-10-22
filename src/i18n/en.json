@@ -1,11 +1,12 @@
 {
   "metadata": {
-    "title": "CardGen",
+    "title": "G3co",
     "description": "Generate custom 3d-printed business cards with QR code and NFC chip support."
   },
   "heading": {
     "githubLabel": "View source on GitHub",
-    "settingsLabel": "Open settings"
+    "settingsLabel": "Open settings",
+    "welcomeLabel": "Show welcome message"
   },
   "visualizer": {
     "resetView": "Reset View",
@@ -25,7 +26,7 @@
     "theme": "Theme",
     "language": "Language",
     "themes": {
-      "biscard": "Default",
+      "g3co": "Default",
       "retro": "Retro",
       "cyberpunk": "Cyberpunk",
       "valentine": "Valentine",
@@ -73,5 +74,20 @@
     "xPosition": "X position",
     "yPosition": "Y Position",
     "zPosition": "Z Position"
+  },
+  "welcome": {
+    "ariaLabel": "Welcome",
+    "title": "Welcome! 🎉",
+    "closeLabel": "Close welcome",
+    "close": "Close",
+    "closeBackdrop": "Close backdrop",
+    "whatTitle": "What is this?",
+    "whatBody": "G3co (Pronounced “Gecko” 🦎) is an app that creates 3d-printable models of business cards that support NFC chips and QR Codes.",
+    "whoTitle": "Who made this?",
+    "whoBody": "This was created by <author>Roberto Reyes</author> as a way to learn more about 3d object management with React Three Fiber.",
+    "cookiesTitle": "Does this site use cookies?",
+    "cookiesBody": "Yes! But only functional ones. We use your browser to store language, theme, and model settings. As an example, to not show this pop-up if you visit this page again!",
+    "problemsTitle": "What do I do if I find any problems with the app?",
+    "problemsBody": "Please report them by creating an issue over at the <issues>GitHub Issues Page</issues> or message me on Bluesky <bluesky>@robruizr.dev</bluesky>."
   }
 }

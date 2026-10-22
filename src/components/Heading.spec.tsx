@@ -6,7 +6,9 @@ import { Heading, HEADING_GITHUB_URL, HEADING_TITLE } from "./Heading";
 
 describe("Heading", () => {
   it("renders correctly and looks like the provided example on figma", () => {
-    renderWithIntl(<Heading onSettingsClick={vi.fn()} />);
+    renderWithIntl(
+      <Heading onSettingsClick={vi.fn()} onWelcomeClick={vi.fn()} />,
+    );
 
     expect(
       screen.getByRole("heading", { name: HEADING_TITLE }),
@@ -22,10 +24,25 @@ describe("Heading", () => {
 
   it("calls onSettingsClick when the settings button is pressed", () => {
     const onSettingsClick = vi.fn();
-    renderWithIntl(<Heading onSettingsClick={onSettingsClick} />);
+    renderWithIntl(
+      <Heading onSettingsClick={onSettingsClick} onWelcomeClick={vi.fn()} />,
+    );
 
     fireEvent.click(screen.getByRole("button", { name: "Open settings" }));
 
     expect(onSettingsClick).toHaveBeenCalledTimes(1);
+  });
+
+  it("calls onWelcomeClick when the welcome button is pressed", () => {
+    const onWelcomeClick = vi.fn();
+    renderWithIntl(
+      <Heading onSettingsClick={vi.fn()} onWelcomeClick={onWelcomeClick} />,
+    );
+
+    fireEvent.click(
+      screen.getByRole("button", { name: "Show welcome message" }),
+    );
+
+    expect(onWelcomeClick).toHaveBeenCalledTimes(1);
   });
 });
