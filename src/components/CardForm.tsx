@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import {
   NumberField,
   SelectField,
@@ -8,7 +9,7 @@ import {
 } from "./FormFields";
 import { PropertyGroup } from "./PropertyGroup";
 import type { QrErrorCorrection } from "./cardFormTypes";
-import useModelStore from "@/store/modelStore";
+import useFormStateStore from "@/store/formStateStore";
 
 export interface CardFormProps {
   className?: string;
@@ -29,23 +30,27 @@ const FONT_OPTIONS = [
   },
 ].map(({ value, label }) => ({ value, label }));
 
-const ERROR_CORRECTION_OPTIONS: readonly {
-  value: QrErrorCorrection;
-  label: string;
-}[] = [
-  { value: "L", label: "Low (7%)" },
-  { value: "M", label: "Medium (15%)" },
-  { value: "Q", label: "Quartile (25%)" },
-  { value: "H", label: "High (30%)" },
-];
+const ERROR_CORRECTION_KEYS: Record<QrErrorCorrection, string> = {
+  L: "errorLow",
+  M: "errorMedium",
+  Q: "errorQuartile",
+  H: "errorHigh",
+};
 
 const GRID = "grid grid-cols-1 gap-x-2 gap-y-3 md:grid-cols-3";
 
 // TODO: Make it so number fields behave normally
 export function CardForm({ className }: CardFormProps) {
-  const state = useModelStore((s) => s.form);
-  const onChange = useModelStore((s) => s.setForm);
+  const t = useTranslations("cardForm");
+  const state = useFormStateStore((s) => s.form);
+  const onChange = useFormStateStore((s) => s.setForm);
   const { card, textBlock, qrCode, nfcChip } = state;
+  const errorCorrectionOptions = (
+    Object.keys(ERROR_CORRECTION_KEYS) as QrErrorCorrection[]
+  ).map((value) => ({
+    value,
+    label: t(`qr.${ERROR_CORRECTION_KEYS[value]}`),
+  }));
 
   const setCard = (patch: Partial<typeof card>) =>
     onChange({ ...state, card: { ...card, ...patch } });
@@ -64,62 +69,62 @@ export function CardForm({ className }: CardFormProps) {
       onSubmit={(e) => e.preventDefault()}
     >
       <fieldset className={GRID}>
-        <legend className="sr-only">Card</legend>
+        <legend className="sr-only">{t("card")}</legend>
         <NumberField
-          label="Width"
+          label={t("width")}
           value={card.width}
           onValueChange={(width) => setCard({ width })}
         />
         <NumberField
-          label="Height"
+          label={t("height")}
           value={card.height}
           onValueChange={(height) => setCard({ height })}
         />
         <NumberField
-          label="Thickness"
+          label={t("thickness")}
           value={card.thickness}
           onValueChange={(thickness) => setCard({ thickness })}
         />
         <NumberField
           className="md:col-span-3"
-          label="Border Radius"
+          label={t("borderRadius")}
           value={card.borderRadius}
           onValueChange={(borderRadius) => setCard({ borderRadius })}
         />
       </fieldset>
 
       <PropertyGroup
-        label="Include text block?"
-        legend="Text Properties"
+        label={t("text.toggle")}
+        legend={t("text.legend")}
         checked={textBlock.enabled}
         onToggleChange={(enabled) => setText({ enabled })}
       >
         <div className={GRID}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-x-2 md:col-span-3">
             <NumberField
-              label="X position"
+              label={t("xPosition")}
               value={textBlock.xPosition}
               onValueChange={(xPosition) => setText({ xPosition })}
             />
             <NumberField
-              label="Y Position"
+              label={t("yPosition")}
               value={textBlock.yPosition}
               onValueChange={(yPosition) => setText({ yPosition })}
             />
             <NumberField
-              label="Z Position"
+              label={t("zPosition")}
               value={textBlock.zPosition}
               onValueChange={(zPosition) => setText({ zPosition })}
             />
           </div>
           <div className="grid grid-cols-2 gap-x-2 md:col-span-3">
             <NumberField
-              label="Thickness"
+              label={t("thickness")}
               value={textBlock.thickness}
               onValueChange={(thickness) => setText({ thickness })}
             />
             <NumberField
-              label="Font size"
+              label={t("text.fontSize")}
               unit=""
               value={textBlock.fontSize}
               onValueChange={(fontSize) => setText({ fontSize })}
@@ -127,14 +132,14 @@ export function CardForm({ className }: CardFormProps) {
           </div>
           <div className="grid grid-cols-2 gap-x-2 md:col-span-3">
             <NumberField
-              label="Line height"
+              label={t("text.lineHeight")}
               unit=""
               value={textBlock.lineHeight}
               onValueChange={(lineHeight) => setText({ lineHeight })}
               allowDecimals={true}
             />
             <SelectField
-              label="Font"
+              label={t("text.font")}
               value={textBlock.fontFamily}
               options={FONT_OPTIONS}
               onValueChange={(fontFamily) => setText({ fontFamily })}
@@ -143,7 +148,7 @@ export function CardForm({ className }: CardFormProps) {
 
           <TextAreaField
             className="md:col-span-3"
-            label="Text content"
+            label={t("text.content")}
             value={textBlock.content}
             onValueChange={(content) => setText({ content })}
           />
@@ -151,38 +156,38 @@ export function CardForm({ className }: CardFormProps) {
       </PropertyGroup>
 
       <PropertyGroup
-        label="Include QR Code?"
-        legend="QR Code Properties"
+        label={t("qr.toggle")}
+        legend={t("qr.legend")}
         checked={qrCode.enabled}
         onToggleChange={(enabled) => setQr({ enabled })}
       >
         <div className={GRID}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-x-2 md:col-span-3">
             <NumberField
-              label="X position"
+              label={t("xPosition")}
               value={qrCode.xPosition}
               onValueChange={(xPosition) => setQr({ xPosition })}
             />
             <NumberField
-              label="Y Position"
+              label={t("yPosition")}
               value={qrCode.yPosition}
               onValueChange={(yPosition) => setQr({ yPosition })}
             />
             <NumberField
-              label="Z Position"
+              label={t("zPosition")}
               value={qrCode.zPosition}
               onValueChange={(zPosition) => setQr({ zPosition })}
             />
           </div>
           <div className="grid grid-cols-2 gap-x-2 md:col-span-3">
             <NumberField
-              label="Module size"
+              label={t("qr.moduleSize")}
               value={qrCode.moduleSize}
               onValueChange={(moduleSize) => setQr({ moduleSize })}
               allowDecimals
             />
             <NumberField
-              label="Thickness"
+              label={t("thickness")}
               value={qrCode.thickness}
               onValueChange={(thickness) => setQr({ thickness })}
             />
@@ -190,21 +195,21 @@ export function CardForm({ className }: CardFormProps) {
 
           <TextField
             className="md:col-span-3"
-            label="QR code text (can be a link)"
+            label={t("qr.content")}
             placeholder="https://example.com/"
             value={qrCode.qrContent}
             onValueChange={(qrContent) => setQr({ qrContent })}
           />
           <SelectField
             className="md:col-span-3"
-            label="Error correction"
+            label={t("qr.errorCorrection")}
             value={qrCode.errorCorrection}
-            options={ERROR_CORRECTION_OPTIONS}
+            options={errorCorrectionOptions}
             onValueChange={(errorCorrection) => setQr({ errorCorrection })}
           />
           <PropertyGroup
             className="md:col-span-3"
-            label="Include border around QR code?"
+            label={t("qr.borderToggle")}
             legend=""
             fieldsetClassName="p-0"
             checked={qrCode.border.enabled}
@@ -212,17 +217,17 @@ export function CardForm({ className }: CardFormProps) {
           >
             <div className={GRID}>
               <NumberField
-                label="Offset from QR code"
+                label={t("qr.borderOffset")}
                 value={qrCode.border.offset}
                 onValueChange={(offset) => setQrBorder({ offset })}
               />
               <NumberField
-                label="Border radius"
+                label={t("qr.borderRadius")}
                 value={qrCode.border.borderRadius}
                 onValueChange={(borderRadius) => setQrBorder({ borderRadius })}
               />
               <NumberField
-                label="Border thickness"
+                label={t("qr.borderThickness")}
                 value={qrCode.border.borderThickness}
                 onValueChange={(borderThickness) =>
                   setQrBorder({ borderThickness })
@@ -234,36 +239,36 @@ export function CardForm({ className }: CardFormProps) {
       </PropertyGroup>
 
       <PropertyGroup
-        label="Leave slot for an NFC chip?"
-        legend="NFC Chip Properties"
+        label={t("nfc.toggle")}
+        legend={t("nfc.legend")}
         checked={nfcChip.enabled}
         onToggleChange={(enabled) => setNfc({ enabled })}
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-x-2 md:col-span-3">
           <NumberField
-            label="X position"
+            label={t("xPosition")}
             value={nfcChip.xPosition}
             onValueChange={(xPosition) => setNfc({ xPosition })}
           />
           <NumberField
-            label="Y Position"
+            label={t("yPosition")}
             value={nfcChip.yPosition}
             onValueChange={(yPosition) => setNfc({ yPosition })}
           />
           <NumberField
-            label="Z Position"
+            label={t("zPosition")}
             value={nfcChip.zPosition}
             onValueChange={(zPosition) => setNfc({ zPosition })}
           />
         </div>
         <div className="grid grid-cols-1 gap-x-2 md:grid-cols-2">
           <NumberField
-            label="Diameter"
+            label={t("nfc.diameter")}
             value={nfcChip.diameter}
             onValueChange={(diameter) => setNfc({ diameter })}
           />
           <NumberField
-            label="Thickness"
+            label={t("thickness")}
             value={nfcChip.thickness}
             onValueChange={(thickness) => setNfc({ thickness })}
           />

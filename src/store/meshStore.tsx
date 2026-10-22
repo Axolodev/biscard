@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { STLExporter } from "three/examples/jsm/exporters/STLExporter.js";
 import JSZip from "jszip";
 import { toast } from "react-toastify";
-import useModelStore from "@/store/modelStore";
+import useFormStateStore from "@/store/formStateStore";
 import { ErrorAlert } from "@/components/Alert";
 
 const isVisibleInHierarchy = (object: THREE.Object3D) => {
@@ -69,7 +69,7 @@ interface geometryStoreState {
 
   jointMesh: THREE.Mesh | null;
 
-  downloadModel: () => void;
+  downloadModel: (errorMessage: string) => void;
   downloadSeparateModels: () => void;
 
   setCardMesh: (cardMesh: THREE.Mesh | null) => void;
@@ -90,10 +90,10 @@ const useMeshStore = create<geometryStoreState>()((set, get) => ({
   setQrMesh: (qrMesh) => set(() => ({ qrMesh: qrMesh })),
   setJointMesh: (jointModel) => set(() => ({ jointMesh: jointModel })),
 
-  downloadModel: () => {
+  downloadModel: (errorMessage) => {
     const { jointMesh: jointModel } = get();
     if (!jointModel) {
-      toast(<ErrorAlert message="There was an error downloading the model." />);
+      toast(<ErrorAlert message={errorMessage} />);
       return;
     }
 
@@ -102,7 +102,7 @@ const useMeshStore = create<geometryStoreState>()((set, get) => ({
 
   downloadSeparateModels: () => {
     const { cardMesh, qrMesh, textMesh } = get();
-    const { qrCode, textBlock } = useModelStore.getState().form;
+    const { qrCode, textBlock } = useFormStateStore.getState().form;
     const zip = new JSZip();
 
     // TODO: Disable downloading this and the text mesh when they're disabled.

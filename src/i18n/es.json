@@ -1,0 +1,93 @@
+{
+  "metadata": {
+    "title": "G3co",
+    "description": "Genera un modelo personalizado imprimible en 3D con código QR y espacio para chip NFC."
+  },
+  "heading": {
+    "githubLabel": "Ver código fuente en GitHub",
+    "settingsLabel": "Abrir configuración",
+    "welcomeLabel": "Mostrar mensaje de bienvenida"
+  },
+  "visualizer": {
+    "resetView": "Resetear vista",
+    "downloadStl": "Descargar .stl",
+    "downloadingModel": "Descargando modelo...",
+    "downloadingSeparate": "Descargando modelos por separado...",
+    "downloadZip": "Descargar todo en zip",
+    "openDownloadMenu": "Abrir submenú de descarga",
+    "downloadError": "Ocurrió un error al descargar el modelo."
+  },
+  "modal": {
+    "ariaLabel": "Configuración",
+    "title": "Configuración",
+    "closeSettings": "Cerrar configuración",
+    "close": "Cerrar",
+    "closeBackdrop": "Cerrar fondo",
+    "theme": "Tema",
+    "language": "Idioma",
+    "themes": {
+      "g3co": "g3co",
+      "retro": "Retro",
+      "cyberpunk": "Cyberpunk",
+      "valentine": "Valentine",
+      "aqua": "Aqua"
+    },
+    "languages": {
+      "en": "Inglés",
+      "es": "Español"
+    }
+  },
+  "cardForm": {
+    "card": "Tarjeta",
+    "width": "Ancho",
+    "height": "Alto",
+    "thickness": "Grosor",
+    "borderRadius": "Radio del borde",
+    "text": {
+      "toggle": "¿Incluir bloque de texto?",
+      "legend": "Propiedades del texto",
+      "fontSize": "Tamaño de fuente",
+      "font": "Fuente",
+      "content": "Contenido",
+      "lineHeight": "Interlineado"
+    },
+    "qr": {
+      "toggle": "¿Incluir código QR?",
+      "legend": "Propiedades del código QR",
+      "content": "Texto del código QR (puede ser un enlace)",
+      "errorCorrection": "Corrección de errores",
+      "errorLow": "Baja (7%)",
+      "errorMedium": "Media (15%)",
+      "errorQuartile": "Cuartil (25%)",
+      "errorHigh": "Alta (30%)",
+      "borderToggle": "¿Incluir borde alrededor del código QR?",
+      "borderOffset": "Separación del código QR",
+      "borderRadius": "Radio del borde",
+      "borderThickness": "Grosor del borde",
+      "moduleSize": "Tamaño de módulo"
+    },
+    "nfc": {
+      "toggle": "¿Dejar espacio para un chip NFC?",
+      "legend": "Propiedades del chip NFC",
+      "diameter": "Diámetro"
+    },
+    "xPosition": "Posición X",
+    "yPosition": "Posición Y",
+    "zPosition": "Posición Z"
+  },
+  "welcome": {
+    "ariaLabel": "Bienvenida",
+    "title": "¡Bienvenido! 🎉",
+    "closeLabel": "Cerrar bienvenida",
+    "close": "Cerrar",
+    "closeBackdrop": "Cerrar fondo",
+    "whatTitle": "¿Qué es esta app?",
+    "whatBody": "G3co (se dice “Gecko” 🦎) es una app para crear modelos de tarjetas de presentación imprimibles en 3D. Estos modelos son compatibles con chips NFC y códigos QR.",
+    "whoTitle": "¿Quién hizo esta app?",
+    "whoBody": "Esta app fue creada por <author>Roberto Reyes</author> para aprender más sobre el manejo de objetos 3D con React Three Fiber.",
+    "cookiesTitle": "La app usa cookies?",
+    "cookiesBody": "Sí, Pero solo funcionales. La app usa tu navegador para guardar el idioma, el tema y la configuración del modelo. Un ejemplo es solo mostrar este pop-up la primera vez que visitas la página.",
+    "problemsTitle": "¿Qué hago si encuentro errores en la app?",
+    "problemsBody": "Repórtalos creando un issue en la <issues>página de Issues de GitHub</issues> o envíame un mensaje en Bluesky <bluesky>@robruizr.dev</bluesky>."
+  }
+}

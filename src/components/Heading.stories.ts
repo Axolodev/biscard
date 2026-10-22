@@ -13,7 +13,7 @@ const meta = {
   },
   tags: ['autodocs'],
   // Use `fn` to spy on onSettingsClick, which will appear in the actions panel once invoked.
-  args: { onSettingsClick: fn() },
+  args: { onSettingsClick: fn(), onWelcomeClick: fn() },
 } satisfies Meta<typeof Heading>;
 
 export default meta;

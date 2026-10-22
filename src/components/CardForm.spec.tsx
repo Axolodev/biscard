@@ -1,19 +1,20 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import { fireEvent, screen, within } from "@testing-library/react";
+import { renderWithIntl } from "@/i18n/testUtils";
 
 import { CardForm } from "./CardForm";
 import { initialCardFormState } from "./cardFormTypes";
-import useModelStore from "@/store/modelStore";
+import useFormStateStore from "@/store/formStateStore";
 
-const currentState = () => useModelStore.getState().form;
+const currentState = () => useFormStateStore.getState().form;
 
 describe("CardForm", () => {
   beforeEach(() => {
-    useModelStore.setState({ form: initialCardFormState });
+    useFormStateStore.setState({ form: initialCardFormState });
   });
 
   it("modifies the state when the values of the form change", () => {
-    render(<CardForm />);
+    renderWithIntl(<CardForm />);
 
     const card = screen.getByRole("group", { name: "Card" });
     fireEvent.change(within(card).getByLabelText("Width"), {
@@ -55,7 +56,7 @@ describe("CardForm", () => {
   });
 
   it("starts with every property group on and editable, then locks them when turned off", () => {
-    render(<CardForm />);
+    renderWithIntl(<CardForm />);
 
     const toggles: [string, string, string][] = [
       ["Include text block?", "Text Properties", "Font size"],

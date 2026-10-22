@@ -1,6 +1,9 @@
 "use client";
 
+import { useLocale, useTranslations } from "next-intl";
 import { useId, useState } from "react";
+
+import { useSetLocale } from "@/i18n/LocaleProvider";
 
 /**
  * Languages the language dropdown offers. English is the default; no
@@ -9,22 +12,7 @@ import { useId, useState } from "react";
  */
 export type Language = "en" | "es";
 
-interface LanguageOption {
-  label: string;
-  value: Language;
-}
-
-const LANGUAGES: LanguageOption[] = [
-  { label: "English", value: "en" },
-  { label: "Spanish", value: "es" },
-];
-
-interface ThemeOption {
-  /** Label shown in the theme-controller dropdown. */
-  label: string;
-  /** DaisyUI theme name this option switches to. */
-  value: string;
-}
+const LANGUAGES: Language[] = ["en", "es"];
 
 /**
  * Themes offered in the theme-controller dropdown, per the Figma design
@@ -33,21 +21,15 @@ interface ThemeOption {
  * themes. All five are enabled via the `themes:` list in
  * `src/app/globals.css`.
  */
-const THEMES: ThemeOption[] = [
-  { label: "Default", value: "biscard" },
-  { label: "Retro", value: "retro" },
-  { label: "Cyberpunk", value: "cyberpunk" },
-  { label: "Valentine", value: "valentine" },
-  { label: "Aqua", value: "aqua" },
-];
+const THEMES = ["g3co", "retro", "cyberpunk", "valentine", "aqua"] as const;
 
 export interface ModalProps {
   /**
-   * Called whenever the user picks a different option in the language
-   * dropdown, with the selected language code. The caller owns any actual
-   * translation behavior — nothing happens here beyond the callback.
+   * Optional notification fired after the user picks a different option in
+   * the language dropdown. The modal itself already switches the app's
+   * language and stores the choice in the locale cookie.
    */
-  onLanguageChange: (language: Language) => void;
+  onLanguageChange?: (language: Language) => void;
   /**
    * Called whenever the modal should close: the upper "✕" button in the
    * corner, the lower "Close" button, or a click on the backdrop.
@@ -66,24 +48,23 @@ export interface ModalProps {
  */
 export function Modal({ onLanguageChange, onClose }: ModalProps) {
   const themeGroupName = useId();
-  const [theme, setTheme] = useState<string>(THEMES[0].value);
-  const [language, setLanguage] = useState<Language>(LANGUAGES[0].value);
+  const t = useTranslations("modal");
+  const language = useLocale() as Language;
+  const setLocale = useSetLocale();
+  const [theme, setTheme] = useState<(typeof THEMES)[number]>(THEMES[0]);
 
-  const selectedThemeLabel =
-    THEMES.find((option) => option.value === theme)?.label ?? THEMES[0].label;
-
-  function selectLanguage(option: LanguageOption) {
-    setLanguage(option.value);
-    onLanguageChange(option.value);
+  function selectLanguage(next: Language) {
+    setLocale(next);
+    onLanguageChange?.(next);
   }
 
   return (
-    <dialog open aria-label="Settings" className="modal">
+    <dialog open aria-label={t("ariaLabel")} className="modal">
       <div className="modal-box relative max-w-[512px]">
         <button
           type="button"
           onClick={onClose}
-          aria-label="Close settings"
+          aria-label={t("closeSettings")}
           className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
         >
           {/* eslint-disable-next-line @next/next/no-img-element -- next/image's
@@ -99,26 +80,26 @@ export function Modal({ onLanguageChange, onClose }: ModalProps) {
           />
         </button>
 
-        <h3 className="text-lg font-bold">Settings</h3>
+        <h3 className="text-lg font-bold">{t("title")}</h3>
 
         <div className="flex flex-col gap-3 py-5">
           <div className="flex items-center justify-between gap-4">
-            <span className="flex-1 font-semibold">Theme</span>
+            <span className="flex-1 font-semibold">{t("theme")}</span>
             <div className="dropdown dropdown-end">
               <div tabIndex={0} role="button" className="btn btn-sm">
-                {selectedThemeLabel}
+                {t(`themes.${theme}`)}
               </div>
               <ul className="dropdown-content bg-base-300 rounded-box z-1 w-52 p-2 shadow-2xl">
                 {THEMES.map((option) => (
-                  <li key={option.value}>
+                  <li key={option}>
                     <input
                       type="radio"
                       name={`theme-dropdown-${themeGroupName}`}
                       className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-                      aria-label={option.label}
-                      value={option.value}
-                      checked={theme === option.value}
-                      onChange={() => setTheme(option.value)}
+                      aria-label={t(`themes.${option}`)}
+                      value={option}
+                      checked={theme === option}
+                      onChange={() => setTheme(option)}
                     />
                   </li>
                 ))}
@@ -127,19 +108,19 @@ export function Modal({ onLanguageChange, onClose }: ModalProps) {
           </div>
 
           <div className="flex items-center justify-between gap-4">
-            <span className="flex-1 font-semibold">Language</span>
+            <span className="flex-1 font-semibold">{t("language")}</span>
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}
                 role="button"
-                aria-label="Language"
+                aria-label={t("language")}
                 className="btn btn-sm flex items-center gap-1.5 px-2"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element --
                     see the close-icon comment above for why these local
                     SVGs stay plain <img> rather than next/image. */}
                 <img
-                  src="/modal-flag-en.svg"
+                  src={`/modal-flag-${language}.svg`}
                   width={24}
                   height={24}
                   alt=""
@@ -156,14 +137,14 @@ export function Modal({ onLanguageChange, onClose }: ModalProps) {
               </div>
               <ul className="dropdown-content bg-base-300 rounded-box z-1 w-36 p-2 shadow-2xl">
                 {LANGUAGES.map((option) => (
-                  <li key={option.value}>
+                  <li key={option}>
                     <button
                       type="button"
                       className="btn btn-sm btn-block btn-ghost justify-start"
-                      aria-pressed={language === option.value}
+                      aria-pressed={language === option}
                       onClick={() => selectLanguage(option)}
                     >
-                      {option.label}
+                      {t(`languages.${option}`)}
                     </button>
                   </li>
                 ))}
@@ -174,14 +155,14 @@ export function Modal({ onLanguageChange, onClose }: ModalProps) {
 
         <div className="modal-action justify-end">
           <button type="button" onClick={onClose} className="btn btn-primary">
-            Close
+            {t("close")}
           </button>
         </div>
       </div>
       <button
         type="button"
         onClick={onClose}
-        aria-label="Close backdrop"
+        aria-label={t("closeBackdrop")}
         className="modal-backdrop"
       />
     </dialog>

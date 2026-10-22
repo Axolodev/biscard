@@ -1,0 +1,93 @@
+{
+  "metadata": {
+    "title": "G3co",
+    "description": "Generate custom 3d-printed business cards with QR code and NFC chip support."
+  },
+  "heading": {
+    "githubLabel": "View source on GitHub",
+    "settingsLabel": "Open settings",
+    "welcomeLabel": "Show welcome message"
+  },
+  "visualizer": {
+    "resetView": "Reset View",
+    "downloadStl": "Download .stl",
+    "downloadingModel": "Downloading model...",
+    "downloadingSeparate": "Downloading separate models...",
+    "downloadZip": "Download all as zip",
+    "openDownloadMenu": "Open download submenu",
+    "downloadError": "There was an error downloading the model."
+  },
+  "modal": {
+    "ariaLabel": "Settings",
+    "title": "Settings",
+    "closeSettings": "Close settings",
+    "close": "Close",
+    "closeBackdrop": "Close backdrop",
+    "theme": "Theme",
+    "language": "Language",
+    "themes": {
+      "g3co": "Default",
+      "retro": "Retro",
+      "cyberpunk": "Cyberpunk",
+      "valentine": "Valentine",
+      "aqua": "Aqua"
+    },
+    "languages": {
+      "en": "English",
+      "es": "Spanish"
+    }
+  },
+  "cardForm": {
+    "card": "Card",
+    "width": "Width",
+    "height": "Height",
+    "thickness": "Thickness",
+    "borderRadius": "Border Radius",
+    "text": {
+      "toggle": "Include text block?",
+      "legend": "Text Properties",
+      "fontSize": "Font size",
+      "font": "Font",
+      "content": "Text content",
+      "lineHeight": "Line height"
+    },
+    "qr": {
+      "toggle": "Include QR Code?",
+      "legend": "QR Code Properties",
+      "content": "QR code text (can be a link)",
+      "errorCorrection": "Error correction",
+      "errorLow": "Low (7%)",
+      "errorMedium": "Medium (15%)",
+      "errorQuartile": "Quartile (25%)",
+      "errorHigh": "High (30%)",
+      "borderToggle": "Include border around QR code?",
+      "borderOffset": "Offset from QR code",
+      "borderRadius": "Border radius",
+      "borderThickness": "Border thickness",
+      "moduleSize": "Module size"
+    },
+    "nfc": {
+      "toggle": "Leave slot for an NFC chip?",
+      "legend": "NFC Chip Properties",
+      "diameter": "Diameter"
+    },
+    "xPosition": "X position",
+    "yPosition": "Y Position",
+    "zPosition": "Z Position"
+  },
+  "welcome": {
+    "ariaLabel": "Welcome",
+    "title": "Welcome! 🎉",
+    "closeLabel": "Close welcome",
+    "close": "Close",
+    "closeBackdrop": "Close backdrop",
+    "whatTitle": "What is this?",
+    "whatBody": "G3co (Pronounced “Gecko” 🦎) is an app that creates 3d-printable models of business cards that support NFC chips and QR Codes.",
+    "whoTitle": "Who made this?",
+    "whoBody": "This was created by <author>Roberto Reyes</author> as a way to learn more about 3d object management with React Three Fiber.",
+    "cookiesTitle": "Does this site use cookies?",
+    "cookiesBody": "Yes! But only functional ones. We use your browser to store language, theme, and model settings. As an example, to not show this pop-up if you visit this page again!",
+    "problemsTitle": "What do I do if I find any problems with the app?",
+    "problemsBody": "Please report them by creating an issue over at the <issues>GitHub Issues Page</issues> or message me on Bluesky <bluesky>@robruizr.dev</bluesky>."
+  }
+}

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
 import { CardForm } from "./CardForm";
 import { initialCardFormState } from "./cardFormTypes";
-import useModelStore from "@/store/modelStore";
+import useFormStateStore from "@/store/formStateStore";
 
 const meta = {
   title: "Components/CardForm",
@@ -11,7 +11,7 @@ const meta = {
   tags: ["autodocs"],
   render: function Render(args) {
     useEffect(() => {
-      useModelStore.setState({ form: initialCardFormState });
+      useFormStateStore.setState({ form: initialCardFormState });
     }, []);
     return (
       <div className="max-w-3xl">

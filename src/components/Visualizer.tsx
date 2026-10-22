@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import useMeshStore from "@/store/meshStore";
 import type { ReactNode } from "react";
 import { toast } from "react-toastify";
@@ -16,6 +17,7 @@ export interface VisualizerProps {
  * scene is supplied by the caller via `children`.
  */
 export function Visualizer({ children }: VisualizerProps) {
+  const t = useTranslations("visualizer");
   const { downloadModel, downloadSeparateModels } = useMeshStore();
 
   return (
@@ -26,22 +28,22 @@ export function Visualizer({ children }: VisualizerProps) {
           onClick={() => {}}
           className="btn btn-outline btn-accent"
         >
-          Reset View
+          {t("resetView")}
         </button>
         <div className="join">
           <button
             type="button"
             onClick={() => {
-              toast(<InfoAlert message="Downloading model..." />);
-              downloadModel();
+              toast(<InfoAlert message={t("downloadingModel")} />);
+              downloadModel(t("downloadError"));
             }}
             className="btn btn-primary join-item"
           >
             <DownloadIcon className="h-4 w-4" />
-            Download .stl
+            {t("downloadStl")}
           </button>
           <div className="dropdown dropdown-bottom join-item btn btn-primary p-0">
-            <div tabIndex={0} role="button" aria-label="Open download submenu">
+            <div tabIndex={0} role="button" aria-label={t("openDownloadMenu")}>
               <div className="w-4 m-4">
                 <DownChevron className="h-4 w-4" />
               </div>
@@ -54,13 +56,13 @@ export function Visualizer({ children }: VisualizerProps) {
                 <button
                   onClick={() => {
                     toast(
-                      <InfoAlert message="Downloading separate models..." />,
+                      <InfoAlert message={t("downloadingSeparate")} />,
                     );
                     downloadSeparateModels();
                   }}
                 >
                   <DownloadIcon className="h-4 w-4" />
-                  Download all as zip
+                  {t("downloadZip")}
                 </button>
               </li>
             </ul>
