@@ -1,14 +1,14 @@
 {
   "metadata": {
     "title": "CardGen",
-    "description": "Genera tarjetas de presentación personalizadas impresas en 3D con código QR y compatibilidad con chip NFC."
+    "description": "Genera un modelo personalizado imprimible en 3D con código QR y espacio para chip NFC."
   },
   "heading": {
     "githubLabel": "Ver código fuente en GitHub",
     "settingsLabel": "Abrir configuración"
   },
   "visualizer": {
-    "resetView": "Restablecer vista",
+    "resetView": "Resetear vista",
     "downloadStl": "Descargar .stl",
     "downloadingModel": "Descargando modelo...",
     "downloadingSeparate": "Descargando modelos por separado...",
@@ -25,7 +25,7 @@
     "theme": "Tema",
     "language": "Idioma",
     "themes": {
-      "biscard": "Predeterminado",
+      "biscard": "Biscard",
       "retro": "Retro",
       "cyberpunk": "Cyberpunk",
       "valentine": "Valentine",
@@ -47,7 +47,7 @@
       "legend": "Propiedades del texto",
       "fontSize": "Tamaño de fuente",
       "font": "Fuente",
-      "content": "Contenido del texto",
+      "content": "Contenido",
       "lineHeight": "Interlineado"
     },
     "qr": {
