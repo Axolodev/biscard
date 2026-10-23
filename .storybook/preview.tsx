@@ -3,6 +3,7 @@ import React from "react";
 
 import "../src/app/globals.css";
 import { LocaleProvider } from "../src/i18n/LocaleProvider";
+import { ThemeProvider } from "../src/theme/ThemeProvider";
 
 const preview: Preview = {
   parameters: {
@@ -30,9 +31,13 @@ const preview: Preview = {
           className: "bg-base-100 text-base-content min-h-screen",
         },
         React.createElement(
-          LocaleProvider,
-          { initialLocale: "en" },
-          React.createElement(Story),
+          ThemeProvider,
+          { initialTheme: "g3co" },
+          React.createElement(
+            LocaleProvider,
+            { initialLocale: "en" },
+            React.createElement(Story),
+          ),
         ),
       ),
   ],

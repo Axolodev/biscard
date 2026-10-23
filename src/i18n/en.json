@@ -26,11 +26,16 @@
     "theme": "Theme",
     "language": "Language",
     "themes": {
-      "g3co": "Default",
+      "g3co": "G3co",
+      "luxury": "Luxury",
+      "synthwave": "Synthwave",
+      "dracula": "Dracula",
+      "caramellatte": "Caramel Latte",
+      "abyss": "Abyss",
+      "autumn": "Autumn",
+      "fantasy": "Fantasy",
       "retro": "Retro",
-      "cyberpunk": "Cyberpunk",
-      "valentine": "Valentine",
-      "aqua": "Aqua"
+      "pastel": "Pastel"
     },
     "languages": {
       "en": "English",

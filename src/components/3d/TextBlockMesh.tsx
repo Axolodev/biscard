@@ -1,13 +1,15 @@
 import { Text3D } from "@react-three/drei";
-import { TextBlockState } from "../cardFormTypes";
+import { CardDimensions, TextBlockState } from "../cardFormTypes";
 import useMeshStore from "@/store/meshStore";
 import * as THREE from "three";
 import { useEffect, useState } from "react";
 
 const TextBlockMesh = ({
   textBlockProps,
+  cardProps,
 }: {
   textBlockProps: TextBlockState;
+  cardProps: CardDimensions;
 }) => {
   const [textMeshRef, setTextMeshRef] = useState<THREE.Mesh | null>(null);
   const { setTextMesh } = useMeshStore();
@@ -26,7 +28,7 @@ const TextBlockMesh = ({
       position={[
         textBlockProps.xPosition,
         textBlockProps.yPosition,
-        textBlockProps.zPosition,
+        cardProps.thickness / 2,
       ]}
       lineHeight={textBlockProps.lineHeight}
       height={textBlockProps.thickness}

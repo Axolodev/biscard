@@ -1,6 +1,6 @@
 "use client";
 
-import { useId } from "react";
+import { useId, useState } from "react";
 import type { ReactNode } from "react";
 
 interface FieldShellProps {
@@ -28,41 +28,76 @@ export interface NumberFieldProps {
   /** Unit shown at the end of the input. Defaults to "mm"; pass "" for none. */
   unit?: string;
   className?: string;
-  allowDecimals?: boolean;
 }
 
-/** Controlled number input with a trailing unit (Figma "Input" with suffix). */
+/** Arrow keys step by 1, or by 10 with Shift. */
+const STEP = 1;
+const SHIFT_STEP = 10;
+
+/** What the field accepts while typing: optional minus sign, digits, one point. */
+const NUMERIC_DRAFT = /^-?\d*\.?\d*$/;
+
+/** Parses the text being typed; an empty or sign-only draft counts as 0. */
+function parseDraft(draft: string): number {
+  return /^-?\.?$/.test(draft) ? 0 : Number(draft);
+}
+
+/**
+ * Controlled number input with a trailing unit (Figma "Input" with suffix).
+ *
+ * Keeps the text being typed in a local draft: a controlled `type="number"`
+ * input would re-render "1." as "1" and drop the decimal point before the
+ * user can type the fractional digits. Both "." and "," work as the decimal
+ * separator; the parsed number is reported through `onValueChange`.
+ *
+ * Being a text input, it restores the number-input behavior by hand
+ * (WAI-ARIA spinbutton pattern): `role="spinbutton"` with `aria-valuenow`,
+ * and ArrowUp / ArrowDown step by 1 (10 with Shift).
+ */
 export function NumberField({
   label,
   value,
   onValueChange,
   unit = "mm",
   className,
-  allowDecimals = false,
 }: NumberFieldProps) {
   const id = useId();
+  const [draft, setDraft] = useState(String(value));
+
+  // The value changed from outside (e.g. restored form state): show it.
+  if (parseDraft(draft) !== value) {
+    setDraft(String(value));
+  }
+
+  function commit(nextDraft: string) {
+    setDraft(nextDraft);
+    onValueChange(parseDraft(nextDraft));
+  }
+
   return (
     <FieldShell label={label} htmlFor={id} className={className}>
       <label className="input w-full">
         <input
           id={id}
-          type="number"
-          inputMode="numeric"
-          step="any"
-          pattern="^-?\d*$"
-          value={value}
+          type="text"
+          role="spinbutton"
+          aria-valuenow={value}
+          inputMode="decimal"
+          value={draft}
+          onKeyDown={(e) => {
+            if (e.key !== "ArrowUp" && e.key !== "ArrowDown") return;
+            e.preventDefault();
+
+            const step = e.shiftKey ? SHIFT_STEP : STEP;
+            const delta = e.key === "ArrowUp" ? step : -step;
+            // Round away float noise such as 0.1 + 0.2 = 0.30000000000000004.
+            commit(String(Math.round((value + delta) * 1e10) / 1e10));
+          }}
           onChange={(e) => {
-            const next = e.target.value;
-            let numericValue = Number.isNaN(Number(next))
-              ? value
-              : Number(next);
+            const next = e.target.value.replace(",", ".");
+            if (!NUMERIC_DRAFT.test(next)) return;
 
-            // Allow only decimal values
-            if (!Number.isInteger(numericValue) && !allowDecimals) {
-              numericValue = value;
-            }
-
-            onValueChange(numericValue);
+            commit(next);
           }}
         />
         {unit && <span className="label">{unit}</span>}

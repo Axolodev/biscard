@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { QrCodeState } from "../cardFormTypes";
+import { useEffect, useMemo, useState } from "react";
+import { CardDimensions, QrCodeState } from "../cardFormTypes";
 import * as THREE from "three";
 import QRCode from "qrcode";
 import useMeshStore from "@/store/meshStore";
@@ -18,7 +18,13 @@ const makeModuleSquare = (col: number, row: number, moduleSize: number) => {
   return shape;
 };
 
-const QRCodeMesh = ({ qrCodeProps }: { qrCodeProps: QrCodeState }) => {
+const QRCodeMesh = ({
+  qrCodeProps,
+  cardProps,
+}: {
+  qrCodeProps: QrCodeState;
+  cardProps: CardDimensions;
+}) => {
   const [meshRef, setMeshRef] = useState<THREE.Mesh | null>(null);
 
   const qrCode = useMemo(
@@ -91,7 +97,7 @@ const QRCodeMesh = ({ qrCodeProps }: { qrCodeProps: QrCodeState }) => {
       position={[
         qrCodeProps.xPosition,
         qrCodeProps.yPosition,
-        qrCodeProps.zPosition,
+        (cardProps.thickness + qrCodeProps.thickness) / 2,
       ]}
       scale={1}
       geometry={geometry}
