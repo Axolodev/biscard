@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# G3co
 
-## Getting Started
+G3co (pronounced "Gecko" 🦎) is a web app for designing 3D-printable business cards. Personalise it to your own liking, then download it as an `.stl` file.
 
-First, run the development server:
+It was created by [Roberto Reyes](https://github.com/Axolodev) to learn more about 3D object management with [React Three Fiber](https://r3f.docs.pmnd.rs/).
+
+## Tech stack
+
+- [Next.js](https://nextjs.org) (App Router, Cache Components, React Compiler) and React 19
+- [three.js](https://threejs.org) with `@react-three/fiber`, `@react-three/drei` and `@react-three/csg`
+- [Tailwind CSS](https://tailwindcss.com) 4 and [daisyUI](https://daisyui.com) 5
+- [zustand](https://zustand.docs.pmnd.rs) for state, [next-intl](https://next-intl.dev) for translations
+- [Vitest](https://vitest.dev), Testing Library and [Storybook](https://storybook.js.org) for tests and component development
+
+## Getting started
+
+You need Node.js 22 or newer (CI runs on 22) and npm.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+> **Note:** this project uses a recent Next.js with breaking changes from older versions. Before changing framework-level code, read the relevant guide in `node_modules/next/dist/docs/` (see [AGENTS.md](AGENTS.md)).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Scripts
 
-## Learn More
+| Command                   | What it does                                                      |
+| ------------------------- | ----------------------------------------------------------------- |
+| `npm run dev`             | Start the development server.                                     |
+| `npm run build`           | Create a production build.                                        |
+| `npm start`               | Serve the production build.                                       |
+| `npm run lint`            | Run ESLint.                                                       |
+| `npm test`                | Run the unit tests (the Vitest `unit` project, using jsdom).      |
+| `npm run storybook`       | Start Storybook on [http://localhost:6006](http://localhost:6006). |
+| `npm run build-storybook` | Build a static Storybook.                                         |
 
-To learn more about Next.js, take a look at the following resources:
+CI ([`.github/workflows/test.yml`](.github/workflows/test.yml)) runs `npm ci`, `npm test` and `npm run build` on every push.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The Vitest config also defines a `storybook` project that runs the stories in headless Chromium through Playwright. It isn't part of `npm test`; run it with `npx vitest run --project storybook`. You may need to install the browser first with `npx playwright install chromium`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project structure
 
-## Deploy on Vercel
+```
+src/
+  app/            Next.js App Router: layout, page, global styles, icons
+  components/     UI: CardForm, FormFields, Visualizer, Modal, WelcomeModal, ...
+    3d/           React Three Fiber meshes: card, QR code, text block, container
+  i18n/           next-intl setup, LocaleProvider, en.json / es.json messages
+  store/          zustand stores (form state, mesh/export) and localStorage hydration
+  theme/          Theme list, cookie handling and ThemeProvider
+public/fonts/     Typeface JSON files used to generate the 3D text
+.storybook/       Storybook configuration
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Tests live next to the code they cover, as `*.spec.ts(x)`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contributing
+
+Bug reports and ideas are welcome on the [GitHub issue tracker](https://github.com/Axolodev/biscard/issues). Before opening a pull request, run `npm run lint`, `npm test` and `npm run build`.
