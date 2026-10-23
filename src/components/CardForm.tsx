@@ -37,7 +37,7 @@ const ERROR_CORRECTION_KEYS: Record<QrErrorCorrection, string> = {
   H: "errorHigh",
 };
 
-const GRID = "grid grid-cols-1 gap-x-2 gap-y-3 md:grid-cols-3";
+const GRID = "grid grid-cols-1 gap-x-2 gap-y-2 md:grid-cols-3";
 
 // TODO: Make it so number fields behave normally
 export function CardForm({ className }: CardFormProps) {
@@ -70,27 +70,30 @@ export function CardForm({ className }: CardFormProps) {
     >
       <fieldset className={GRID}>
         <legend className="sr-only">{t("card")}</legend>
-        <NumberField
-          label={t("width")}
-          value={card.width}
-          onValueChange={(width) => setCard({ width })}
-        />
-        <NumberField
-          label={t("height")}
-          value={card.height}
-          onValueChange={(height) => setCard({ height })}
-        />
-        <NumberField
-          label={t("thickness")}
-          value={card.thickness}
-          onValueChange={(thickness) => setCard({ thickness })}
-        />
-        <NumberField
-          className="md:col-span-3"
-          label={t("borderRadius")}
-          value={card.borderRadius}
-          onValueChange={(borderRadius) => setCard({ borderRadius })}
-        />
+        <div className="grid gap-y-2 grid-cols-1 md:grid-cols-2 gap-x-2 md:col-span-3">
+          <NumberField
+            label={t("width")}
+            value={card.width}
+            onValueChange={(width) => setCard({ width })}
+          />
+          <NumberField
+            label={t("height")}
+            value={card.height}
+            onValueChange={(height) => setCard({ height })}
+          />
+        </div>
+        <div className="grid gap-y-2 grid-cols-1 md:grid-cols-2 gap-x-2 md:col-span-3">
+          <NumberField
+            label={t("thickness")}
+            value={card.thickness}
+            onValueChange={(thickness) => setCard({ thickness })}
+          />
+          <NumberField
+            label={t("borderRadius")}
+            value={card.borderRadius}
+            onValueChange={(borderRadius) => setCard({ borderRadius })}
+          />
+        </div>
       </fieldset>
 
       <PropertyGroup
@@ -171,15 +174,15 @@ export function CardForm({ className }: CardFormProps) {
           </div>
           <div className="grid grid-cols-2 gap-x-2 md:col-span-3">
             <NumberField
+              label={t("thickness")}
+              value={qrCode.thickness}
+              onValueChange={(thickness) => setQr({ thickness })}
+            />
+            <NumberField
               label={t("qr.moduleSize")}
               value={qrCode.moduleSize}
               onValueChange={(moduleSize) => setQr({ moduleSize })}
               allowDecimals
-            />
-            <NumberField
-              label={t("thickness")}
-              value={qrCode.thickness}
-              onValueChange={(thickness) => setQr({ thickness })}
             />
           </div>
 
@@ -248,14 +251,14 @@ export function CardForm({ className }: CardFormProps) {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2 md:col-span-3">
           <NumberField
-            label={t("nfc.diameter")}
-            value={nfcChip.diameter}
-            onValueChange={(diameter) => setNfc({ diameter })}
-          />
-          <NumberField
             label={t("thickness")}
             value={nfcChip.thickness}
             onValueChange={(thickness) => setNfc({ thickness })}
+          />
+          <NumberField
+            label={t("nfc.diameter")}
+            value={nfcChip.diameter}
+            onValueChange={(diameter) => setNfc({ diameter })}
           />
         </div>
       </PropertyGroup>
