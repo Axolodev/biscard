@@ -1,6 +1,6 @@
 "use client";
 
-import { useId } from "react";
+import { useId, useState } from "react";
 import type { ReactNode } from "react";
 
 interface FieldShellProps {
@@ -31,38 +31,51 @@ export interface NumberFieldProps {
   allowDecimals?: boolean;
 }
 
-/** Controlled number input with a trailing unit (Figma "Input" with suffix). */
+/** Parses the text being typed; an empty or sign-only draft counts as 0. */
+function parseDraft(draft: string): number {
+  return /^-?\.?$/.test(draft) ? 0 : Number(draft);
+}
+
+/**
+ * Controlled number input with a trailing unit (Figma "Input" with suffix).
+ *
+ * Keeps the text being typed in a local draft: a controlled `type="number"`
+ * input would re-render "1." as "1" and drop the decimal point before the
+ * user can type the fractional digits. Both "." and "," work as the decimal
+ * separator; the parsed number is reported through `onValueChange`.
+ */
 export function NumberField({
   label,
   value,
   onValueChange,
   unit = "mm",
   className,
-  allowDecimals = false,
+  allowDecimals = true,
 }: NumberFieldProps) {
   const id = useId();
+  const [draft, setDraft] = useState(String(value));
+
+  // The value changed from outside (e.g. restored form state): show it.
+  if (parseDraft(draft) !== value) {
+    setDraft(String(value));
+  }
+
+  const allowed = allowDecimals ? /^-?\d*\.?\d*$/ : /^-?\d*$/;
+
   return (
     <FieldShell label={label} htmlFor={id} className={className}>
       <label className="input w-full">
         <input
           id={id}
-          type="number"
-          inputMode="numeric"
-          step="any"
-          pattern="^-?\d*$"
-          value={value}
+          type="text"
+          inputMode={allowDecimals ? "decimal" : "numeric"}
+          value={draft}
           onChange={(e) => {
-            const next = e.target.value;
-            let numericValue = Number.isNaN(Number(next))
-              ? value
-              : Number(next);
+            const next = e.target.value.replace(",", ".");
+            if (!allowed.test(next)) return;
 
-            // Allow only decimal values
-            if (!Number.isInteger(numericValue) && !allowDecimals) {
-              numericValue = value;
-            }
-
-            onValueChange(numericValue);
+            setDraft(next);
+            onValueChange(parseDraft(next));
           }}
         />
         {unit && <span className="label">{unit}</span>}
