@@ -16,19 +16,26 @@ describe("Modal", () => {
       screen.getByRole("heading", { name: "Settings" }),
     ).toBeInTheDocument();
 
-    // Theme-controller dropdown, built per DaisyUI's documented dropdown
-    // pattern, offering this app's own theme (labeled "Default") plus the
-    // four built-in DaisyUI themes enabled in globals.css.
-    expect(screen.getByRole("button", { name: "Default" })).toBeInTheDocument();
-    const defaultThemeOption = screen.getByRole("radio", { name: "Default" });
+    // Theme dropdown offering this app's own theme ("G3co") plus the nine
+    // built-in DaisyUI themes enabled in globals.css.
+    expect(screen.getByRole("button", { name: "G3co" })).toBeInTheDocument();
+    const defaultThemeOption = screen.getByRole("radio", { name: "G3co" });
     expect(defaultThemeOption).toBeInTheDocument();
-    expect(defaultThemeOption).toHaveClass("theme-controller");
     expect(defaultThemeOption).toHaveAttribute("value", "g3co");
     expect(defaultThemeOption).toBeChecked();
-    for (const label of ["Retro", "Cyberpunk", "Valentine", "Aqua"]) {
+    for (const label of [
+      "Luxury",
+      "Synthwave",
+      "Dracula",
+      "Caramel Latte",
+      "Abyss",
+      "Autumn",
+      "Fantasy",
+      "Retro",
+      "Pastel",
+    ]) {
       const option = screen.getByRole("radio", { name: label });
       expect(option).toBeInTheDocument();
-      expect(option).toHaveClass("theme-controller");
       expect(option).not.toBeChecked();
     }
 
@@ -84,5 +91,15 @@ describe("Modal", () => {
 
     expect(onLanguageChange).toHaveBeenCalledTimes(1);
     expect(onLanguageChange).toHaveBeenCalledWith("es");
+  });
+
+  it("applies the selected theme to the document and stores it in a cookie", () => {
+    renderWithIntl(<Modal onLanguageChange={vi.fn()} onClose={vi.fn()} />);
+
+    fireEvent.click(screen.getByRole("radio", { name: "Retro" }));
+
+    expect(document.documentElement.dataset.theme).toBe("retro");
+    expect(document.cookie).toContain("NEXT_THEME=retro");
+    expect(screen.getByRole("radio", { name: "Retro" })).toBeChecked();
   });
 });

@@ -1,9 +1,11 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useId, useState } from "react";
+import { useId } from "react";
 
 import { useSetLocale } from "@/i18n/LocaleProvider";
+import { THEMES } from "@/theme/config";
+import { useTheme } from "@/theme/ThemeProvider";
 
 /**
  * Languages the language dropdown offers. English is the default; no
@@ -13,15 +15,6 @@ import { useSetLocale } from "@/i18n/LocaleProvider";
 export type Language = "en" | "es";
 
 const LANGUAGES: Language[] = ["en", "es"];
-
-/**
- * Themes offered in the theme-controller dropdown, per the Figma design
- * (node 26:11929, "Modal + Backdrop"): this app's own theme first — labeled
- * "Default" in this dropdown — followed by four of DaisyUI's built-in
- * themes. All five are enabled via the `themes:` list in
- * `src/app/globals.css`.
- */
-const THEMES = ["g3co", "retro", "cyberpunk", "valentine", "aqua"] as const;
 
 export interface ModalProps {
   /**
@@ -51,7 +44,7 @@ export function Modal({ onLanguageChange, onClose }: ModalProps) {
   const t = useTranslations("modal");
   const language = useLocale() as Language;
   const setLocale = useSetLocale();
-  const [theme, setTheme] = useState<(typeof THEMES)[number]>(THEMES[0]);
+  const { theme, setTheme } = useTheme();
 
   function selectLanguage(next: Language) {
     setLocale(next);
@@ -95,7 +88,7 @@ export function Modal({ onLanguageChange, onClose }: ModalProps) {
                     <input
                       type="radio"
                       name={`theme-dropdown-${themeGroupName}`}
-                      className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                      className="btn btn-sm btn-block btn-ghost justify-start"
                       aria-label={t(`themes.${option}`)}
                       value={option}
                       checked={theme === option}

@@ -39,13 +39,13 @@ const Container = () => {
 
           <Suspense fallback={null}>
             {textBlock.enabled && textBlock.content.length > 0 && (
-              <TextBlockMesh textBlockProps={textBlock} />
+              <TextBlockMesh textBlockProps={textBlock} cardProps={card} />
             )}
           </Suspense>
 
           <Suspense fallback={null}>
             {qrCode.enabled && qrCode.qrContent.length > 0 && (
-              <QRCodeMesh qrCodeProps={qrCode} />
+              <QRCodeMesh qrCodeProps={qrCode} cardProps={card} />
             )}
           </Suspense>
         </group>
