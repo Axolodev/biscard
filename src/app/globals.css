@@ -17,7 +17,7 @@
 }
 
 @plugin "daisyui" {
-  themes: retro, cyberpunk, valentine, aqua;
+  themes: luxury, synthwave, dracula, caramellatte, abyss, autumn, fantasy, retro, pastel;
 }
 
 @plugin "daisyui/theme" {
