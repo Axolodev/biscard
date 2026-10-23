@@ -134,7 +134,6 @@ export function CardForm({ className }: CardFormProps) {
               unit=""
               value={textBlock.lineHeight}
               onValueChange={(lineHeight) => setText({ lineHeight })}
-              allowDecimals={true}
             />
             <SelectField
               label={t("text.font")}
@@ -182,7 +181,6 @@ export function CardForm({ className }: CardFormProps) {
               label={t("qr.moduleSize")}
               value={qrCode.moduleSize}
               onValueChange={(moduleSize) => setQr({ moduleSize })}
-              allowDecimals
             />
           </div>
 

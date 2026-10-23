@@ -28,8 +28,14 @@ export interface NumberFieldProps {
   /** Unit shown at the end of the input. Defaults to "mm"; pass "" for none. */
   unit?: string;
   className?: string;
-  allowDecimals?: boolean;
 }
+
+/** Arrow keys step by 1, or by 10 with Shift. */
+const STEP = 1;
+const SHIFT_STEP = 10;
+
+/** What the field accepts while typing: optional minus sign, digits, one point. */
+const NUMERIC_DRAFT = /^-?\d*\.?\d*$/;
 
 /** Parses the text being typed; an empty or sign-only draft counts as 0. */
 function parseDraft(draft: string): number {
@@ -43,6 +49,10 @@ function parseDraft(draft: string): number {
  * input would re-render "1." as "1" and drop the decimal point before the
  * user can type the fractional digits. Both "." and "," work as the decimal
  * separator; the parsed number is reported through `onValueChange`.
+ *
+ * Being a text input, it restores the number-input behavior by hand
+ * (WAI-ARIA spinbutton pattern): `role="spinbutton"` with `aria-valuenow`,
+ * and ArrowUp / ArrowDown step by 1 (10 with Shift).
  */
 export function NumberField({
   label,
@@ -50,7 +60,6 @@ export function NumberField({
   onValueChange,
   unit = "mm",
   className,
-  allowDecimals = true,
 }: NumberFieldProps) {
   const id = useId();
   const [draft, setDraft] = useState(String(value));
@@ -60,7 +69,10 @@ export function NumberField({
     setDraft(String(value));
   }
 
-  const allowed = allowDecimals ? /^-?\d*\.?\d*$/ : /^-?\d*$/;
+  function commit(nextDraft: string) {
+    setDraft(nextDraft);
+    onValueChange(parseDraft(nextDraft));
+  }
 
   return (
     <FieldShell label={label} htmlFor={id} className={className}>
@@ -68,14 +80,24 @@ export function NumberField({
         <input
           id={id}
           type="text"
-          inputMode={allowDecimals ? "decimal" : "numeric"}
+          role="spinbutton"
+          aria-valuenow={value}
+          inputMode="decimal"
           value={draft}
+          onKeyDown={(e) => {
+            if (e.key !== "ArrowUp" && e.key !== "ArrowDown") return;
+            e.preventDefault();
+
+            const step = e.shiftKey ? SHIFT_STEP : STEP;
+            const delta = e.key === "ArrowUp" ? step : -step;
+            // Round away float noise such as 0.1 + 0.2 = 0.30000000000000004.
+            commit(String(Math.round((value + delta) * 1e10) / 1e10));
+          }}
           onChange={(e) => {
             const next = e.target.value.replace(",", ".");
-            if (!allowed.test(next)) return;
+            if (!NUMERIC_DRAFT.test(next)) return;
 
-            setDraft(next);
-            onValueChange(parseDraft(next));
+            commit(next);
           }}
         />
         {unit && <span className="label">{unit}</span>}
