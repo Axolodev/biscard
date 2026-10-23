@@ -56,7 +56,7 @@ export interface CardFormState {
 }
 
 export const initialCardFormState: CardFormState = {
-  card: { width: 88, height: 50, thickness: 3, borderRadius: 8 },
+  card: { width: 84, height: 53, thickness: 2, borderRadius: 8 },
   textBlock: {
     enabled: true,
     xPosition: -40,

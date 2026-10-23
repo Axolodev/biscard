@@ -1,4 +1,6 @@
 import { useTranslations } from "next-intl";
+import Image from "next/image";
+import Logo from "@/assets/icon.png";
 
 /**
  * Repository the GitHub icon links out to. Fixed per the design — not configurable.
@@ -29,7 +31,11 @@ export function Heading({ onSettingsClick, onWelcomeClick }: HeadingProps) {
   const t = useTranslations("heading");
   return (
     <header className="navbar text-base-content border-base-content border-b px-0">
-      <div className="flex-1">
+      <div className="flex-1 flex gap-1 align-middle">
+        {/** Logo */}
+        <div className="ml-2 hover:animate-wiggle transition-transform">
+          <Image src={Logo} aria-hidden width={40} height={40} alt="" />
+        </div>
         <h1 className="px-2 text-4xl font-bold">{HEADING_TITLE}</h1>
       </div>
       <div className="flex flex-none items-center gap-1">

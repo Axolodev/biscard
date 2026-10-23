@@ -100,7 +100,7 @@ export function CardForm({ className }: CardFormProps) {
         onToggleChange={(enabled) => setText({ enabled })}
       >
         <div className={GRID}>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-2 md:col-span-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2 md:col-span-3">
             <NumberField
               label={t("xPosition")}
               value={textBlock.xPosition}
@@ -110,11 +110,6 @@ export function CardForm({ className }: CardFormProps) {
               label={t("yPosition")}
               value={textBlock.yPosition}
               onValueChange={(yPosition) => setText({ yPosition })}
-            />
-            <NumberField
-              label={t("zPosition")}
-              value={textBlock.zPosition}
-              onValueChange={(zPosition) => setText({ zPosition })}
             />
           </div>
           <div className="grid grid-cols-2 gap-x-2 md:col-span-3">
@@ -162,7 +157,7 @@ export function CardForm({ className }: CardFormProps) {
         onToggleChange={(enabled) => setQr({ enabled })}
       >
         <div className={GRID}>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-2 md:col-span-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2 md:col-span-3">
             <NumberField
               label={t("xPosition")}
               value={qrCode.xPosition}
@@ -172,11 +167,6 @@ export function CardForm({ className }: CardFormProps) {
               label={t("yPosition")}
               value={qrCode.yPosition}
               onValueChange={(yPosition) => setQr({ yPosition })}
-            />
-            <NumberField
-              label={t("zPosition")}
-              value={qrCode.zPosition}
-              onValueChange={(zPosition) => setQr({ zPosition })}
             />
           </div>
           <div className="grid grid-cols-2 gap-x-2 md:col-span-3">
@@ -244,7 +234,7 @@ export function CardForm({ className }: CardFormProps) {
         checked={nfcChip.enabled}
         onToggleChange={(enabled) => setNfc({ enabled })}
       >
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-2 md:col-span-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2 md:col-span-3">
           <NumberField
             label={t("xPosition")}
             value={nfcChip.xPosition}
@@ -255,13 +245,8 @@ export function CardForm({ className }: CardFormProps) {
             value={nfcChip.yPosition}
             onValueChange={(yPosition) => setNfc({ yPosition })}
           />
-          <NumberField
-            label={t("zPosition")}
-            value={nfcChip.zPosition}
-            onValueChange={(zPosition) => setNfc({ zPosition })}
-          />
         </div>
-        <div className="grid grid-cols-1 gap-x-2 md:grid-cols-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2 md:col-span-3">
           <NumberField
             label={t("nfc.diameter")}
             value={nfcChip.diameter}
