@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import * as THREE from "three";
+import type { CameraControls } from "@react-three/drei";
 import { STLExporter } from "three/examples/jsm/exporters/STLExporter.js";
 import JSZip from "jszip";
 import { toast } from "react-toastify";
@@ -62,13 +63,18 @@ function downloadMeshAsStl({
   downloadBlobAsFile(blob, filename);
 }
 
+type CameraControlsInstance = React.ComponentRef<typeof CameraControls>;
+
 interface geometryStoreState {
   cardMesh: THREE.Mesh | null;
   textMesh: THREE.Mesh | null;
   qrMesh: THREE.Mesh | null;
 
   jointMesh: THREE.Mesh | null;
+  cameraControls: CameraControlsInstance | null;
 
+  /** Animates the camera back to its initial position and orientation. */
+  resetView: () => void;
   downloadModel: (errorMessage: string) => void;
   downloadSeparateModels: () => void;
 
@@ -76,6 +82,7 @@ interface geometryStoreState {
   setTextMesh: (textMesh: THREE.Mesh | null) => void;
   setQrMesh: (qrMesh: THREE.Mesh | null) => void;
   setJointMesh: (jointModel: THREE.Mesh | null) => void;
+  setCameraControls: (controls: CameraControlsInstance | null) => void;
 }
 
 const useMeshStore = create<geometryStoreState>()((set, get) => ({
@@ -84,11 +91,17 @@ const useMeshStore = create<geometryStoreState>()((set, get) => ({
   qrMesh: null,
 
   jointMesh: null,
+  cameraControls: null,
 
   setCardMesh: (cardMesh) => set(() => ({ cardMesh: cardMesh })),
   setTextMesh: (textMesh) => set(() => ({ textMesh: textMesh })),
   setQrMesh: (qrMesh) => set(() => ({ qrMesh: qrMesh })),
   setJointMesh: (jointModel) => set(() => ({ jointMesh: jointModel })),
+  setCameraControls: (controls) => set(() => ({ cameraControls: controls })),
+
+  resetView: () => {
+    get().cameraControls?.reset(true);
+  },
 
   downloadModel: (errorMessage) => {
     const { jointMesh: jointModel } = get();

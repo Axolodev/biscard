@@ -1,7 +1,8 @@
-import { describe, expect, it } from "vitest";
-import { screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
+import { fireEvent, screen } from "@testing-library/react";
 import { renderWithIntl } from "@/i18n/testUtils";
 
+import useMeshStore from "@/store/meshStore";
 import { Visualizer } from "./Visualizer";
 
 describe("Visualizer", () => {
@@ -56,5 +57,20 @@ describe("Visualizer", () => {
         "items-center",
       );
     });
+  });
+
+  it("animates the camera back to its initial view when 'Reset View' is clicked", () => {
+    const reset = vi.fn();
+    useMeshStore.setState({
+      cameraControls: { reset } as unknown as ReturnType<
+        typeof useMeshStore.getState
+      >["cameraControls"],
+    });
+    renderWithIntl(<Visualizer />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Reset View" }));
+
+    expect(reset).toHaveBeenCalledWith(true);
+    useMeshStore.setState({ cameraControls: null });
   });
 });

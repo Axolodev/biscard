@@ -18,14 +18,14 @@ export interface VisualizerProps {
  */
 export function Visualizer({ children }: VisualizerProps) {
   const t = useTranslations("visualizer");
-  const { downloadModel, downloadSeparateModels } = useMeshStore();
+  const { downloadModel, downloadSeparateModels, resetView } = useMeshStore();
 
   return (
     <div className="border-base-content/10 bg-base-300 flex flex-col overflow-hidden rounded-box border">
       <div className="bg-base-200 flex items-center justify-center gap-4 p-6">
         <button
           type="button"
-          onClick={() => {}}
+          onClick={resetView}
           className="btn btn-outline btn-accent"
         >
           {t("resetView")}
