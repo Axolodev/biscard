@@ -16,7 +16,7 @@ const RTFContainer = () => {
   const { resetValues } = useFormStateStore();
   const t = useTranslations("visualizer");
 
-  const { setJointMesh } = useMeshStore();
+  const { setJointMesh, setCameraControls } = useMeshStore();
   const [jointMeshRef, setJointMeshRef] = useState<THREE.Mesh | null>(null);
   const [mycam, setMycam] = useState<THREE.PerspectiveCamera | null>(null);
 
@@ -52,7 +52,9 @@ const RTFContainer = () => {
             position={[0, 0, 100]}
             fov={70}
           />
-          {mycam && <CameraControls camera={mycam} />}
+          {mycam && (
+            <CameraControls ref={setCameraControls} camera={mycam} />
+          )}
 
           <directionalLight color="white" position={[0, 0, 5]} />
           <group ref={setJointMeshRef}>
