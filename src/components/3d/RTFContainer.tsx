@@ -9,12 +9,9 @@ import CardMesh from "./CardMesh";
 import QRCodeMesh from "./QRCodeMesh";
 import TextBlockMesh from "./TextBlockMesh";
 import ErrorBoundary from "./ErrorBoundary";
-import { useTranslations } from "next-intl";
 
 const RTFContainer = () => {
   const { card, textBlock, qrCode, nfcChip } = useFormStateStore((s) => s.form);
-  const { resetValues } = useFormStateStore();
-  const t = useTranslations("visualizer");
 
   const { setJointMesh, setCameraControls } = useMeshStore();
   const [jointMeshRef, setJointMeshRef] = useState<THREE.Mesh | null>(null);
@@ -28,23 +25,7 @@ const RTFContainer = () => {
 
   return (
     <div className="w-full h-full">
-      <ErrorBoundary
-        fallback={
-          <div className="w-full h-full flex flex-col items-center justify-center">
-            <div className="w-[80%] text-center flex flex-col items-center justify-center gap-4">
-              <p className="text-xl">{t("error")}</p>
-              <button
-                className="ml-4 btn btn-primary"
-                onClick={() => {
-                  resetValues();
-                }}
-              >
-                {t("errorCTA")}
-              </button>
-            </div>
-          </div>
-        }
-      >
+      <ErrorBoundary>
         <Canvas>
           <PerspectiveCamera
             ref={setMycam}
