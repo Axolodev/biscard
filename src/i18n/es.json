@@ -15,7 +15,9 @@
     "downloadingSeparate": "Descargando modelos por separado...",
     "downloadZip": "Descargar todo en zip",
     "openDownloadMenu": "Abrir submenú de descarga",
-    "downloadError": "Ocurrió un error al descargar el modelo."
+    "downloadError": "Ocurrió un error al descargar el modelo.",
+    "error": "Ocurrió un error al renderizar tu modelo. El error ha sido reportado.",
+    "errorCTA": "Resetear los valores"
   },
   "modal": {
     "ariaLabel": "Configuración",

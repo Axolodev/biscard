@@ -15,7 +15,9 @@
     "downloadingSeparate": "Downloading separate models...",
     "downloadZip": "Download all as zip",
     "openDownloadMenu": "Open download submenu",
-    "downloadError": "There was an error downloading the model."
+    "downloadError": "There was an error downloading the model.",
+    "error": "Something went wrong when rendering your model. The error has been reported.",
+    "errorCTA": "Reset all fields"
   },
   "modal": {
     "ariaLabel": "Settings",
