@@ -2,8 +2,9 @@
 
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
+import { version } from "../../package.json";
 
-export const WELCOME_APP_VERSION = "v0.1.0 alpha";
+export const WELCOME_APP_VERSION = version;
 
 const LINKS = {
   author: "https://github.com/Axolodev",
