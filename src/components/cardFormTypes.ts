@@ -82,7 +82,7 @@ export const initialCardFormState: CardFormState = {
   nfcChip: {
     enabled: true,
     diameter: 25,
-    thickness: 2,
+    thickness: 1,
     xPosition: 0,
     yPosition: 0,
     zPosition: 0,
