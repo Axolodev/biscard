@@ -1,6 +1,6 @@
 "use client";
 
-import Container from "@/components/3d/Container";
+import RTFContainer from "@/components/3d/RTFContainer";
 import { CardForm } from "@/components/CardForm";
 import { Heading } from "@/components/Heading";
 import { Modal } from "@/components/Modal";
@@ -52,7 +52,7 @@ export default function Home() {
         <div className="grid min-h-0 flex-1 grid-cols-1 gap-6 lg:grid-cols-2">
           <CardForm className="min-h-0 md:overflow-y-auto" />
           <Visualizer>
-            <Container />
+            <RTFContainer />
           </Visualizer>
         </div>
       </main>

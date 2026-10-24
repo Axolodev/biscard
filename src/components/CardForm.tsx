@@ -39,7 +39,6 @@ const ERROR_CORRECTION_KEYS: Record<QrErrorCorrection, string> = {
 
 const GRID = "grid grid-cols-1 gap-x-2 gap-y-2 md:grid-cols-3";
 
-// TODO: Make it so number fields behave normally
 export function CardForm({ className }: CardFormProps) {
   const t = useTranslations("cardForm");
   const state = useFormStateStore((s) => s.form);

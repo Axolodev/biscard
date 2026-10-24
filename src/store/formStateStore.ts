@@ -6,6 +6,7 @@ import { initialCardFormState } from "@/components/cardFormTypes";
 interface FormStateStore {
   form: CardFormState;
   setForm: (form: CardFormState) => void;
+  resetValues: () => void;
 }
 
 export const FORM_STATE_STORAGE_KEY = "biscard:formState";
@@ -35,6 +36,7 @@ const useFormStateStore = create<FormStateStore>()(
     (set) => ({
       form: initialCardFormState,
       setForm: (form) => set({ form }),
+      resetValues: () => set({ form: { ...initialCardFormState } }),
     }),
     {
       name: FORM_STATE_STORAGE_KEY,
